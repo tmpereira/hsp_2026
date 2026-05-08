@@ -31,15 +31,15 @@ biblioteca.
 
 ## Visão geral dos módulos
 
-| Módulo | Função principal |
-|--------|-----------------|
-| `file` | Leitura de formatos binários FSM (Perkin Elmer) e Agilent DMD/DMT |
+| Módulo  | Função principal                                                           |
+| -------- | ---------------------------------------------------------------------------- |
+| `file` | Leitura de formatos binários FSM (Perkin Elmer) e Agilent DMD/DMT           |
 | `prep` | Pré-processamento espectral: corte, normalização SNV, Savitzky-Golay, PCA |
-| `emsc` | Correção de espalhamento multiplicativo estendido (EMSC) |
-| `qt`   | Controle de qualidade: remoção de pixels defeituosos |
-| `rg`   | Histogramas para inspeção das métricas de qualidade |
-| `sh`   | Geração de imagens hiperespectrais (intensidade, área, PCA, EMSC) |
-| `km`   | Segmentação por K-Means com visualização de clusters |
+| `emsc` | Correção de espalhamento multiplicativo estendido (EMSC)                   |
+| `qt`   | Controle de qualidade: remoção de pixels defeituosos                       |
+| `rg`   | Histogramas para inspeção das métricas de qualidade                       |
+| `sh`   | Geração de imagens hiperespectrais (intensidade, área, PCA, EMSC)         |
+| `km`   | Segmentação por K-Means com visualização de clusters                     |
 
 ---
 
@@ -71,10 +71,8 @@ scores, loadings, var = sh.pc(data, n=1)
 ## Instalação
 
 ```bash
-pip install hsp_2026
-```
 
-Ou, para desenvolvimento local:
+```
 
 ```bash
 git clone https://github.com/seu_usuario/hsp_2026
@@ -86,14 +84,6 @@ Consulte a página [Instalação](instalacao.md) para detalhes sobre dependênci
 
 ---
 
-## Citação
-
-Se você utilizar esta biblioteca em publicações científicas, por favor cite:
-
-> Pereira, T.M. *et al.* **HSP: uma biblioteca Python para processamento de
-> imagens de Micro-FTIR**. UNIFESP, 2026.
-
----
 
 ## Licença
 
