@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `sh.py` — Visualização de Imagens Hiperespectrais
 
 O módulo `sh` (*show*) é a **janela visual** da biblioteca `hsp_2026`.

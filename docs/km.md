@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `km.py` — Clusterização K-Means
 
 O módulo `km` implementa **análise de agrupamento não supervisionada**

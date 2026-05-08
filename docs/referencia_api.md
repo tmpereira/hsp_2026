@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Referência da API
 
 Documentação completa de todas as funções públicas da biblioteca HSP.

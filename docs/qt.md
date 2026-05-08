@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `qt.py` — Controle de Qualidade Espectral
 
 Este módulo é responsável por **remover pixels defeituosos** da imagem

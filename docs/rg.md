@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `rg.py` — Histogramas para Definição de Limiares
 
 O módulo `rg` (*range*) é um **auxiliar de diagnóstico visual**.

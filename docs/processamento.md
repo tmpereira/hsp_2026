@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Pré-Processamento Espectral
 
 O cubo hiperespectral bruto de Micro-FTIR contém, além do sinal químico de

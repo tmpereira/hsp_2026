@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `file.py` — Leitura de Arquivos de Micro-FTIR
 
 Este módulo é responsável por **abrir e converter** os arquivos gerados

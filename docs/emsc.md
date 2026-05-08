@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `emsc.py` — Correção Multiplicativa de Espalhamento Estendida
 
 O módulo `emsc` implementa a **EMSC** (*Extended Multiplicative Scatter

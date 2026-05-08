@@ -1,3 +1,5 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Pré-processamento e Análise de Dados em Microespectroscopia FT-IR
 
 > **Para quem é este texto?** Este material foi escrito para estudantes de graduação em Engenharia e Ciências Exatas que estão tendo seu primeiro contato com análise de dados espectrais. O objetivo é construir a intuição passo a passo, do dado bruto até a imagem química final.

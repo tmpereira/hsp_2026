@@ -1,3 +1,5 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Correção Multiplicativa de Sinal Estendida (EMSC)
 
 > **Para quem é este texto?** Este material foi escrito para estudantes de graduação em Engenharia e Ciências Exatas que estão tendo seu primeiro contato com técnicas de pré-processamento de espectros vibracionais. Nenhum conhecimento prévio de espectroscopia avançada é necessário — apenas álgebra linear básica e um pouco de curiosidade!

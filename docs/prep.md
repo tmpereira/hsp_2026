@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # Módulo `prep.py` — Pré-Processamento Espectral
 
 Este módulo contém todas as ferramentas para **preparar** os espectros

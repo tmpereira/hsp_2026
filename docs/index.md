@@ -1,3 +1,7 @@
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
+> ⚠️ **Documentação em construção.** Algumas informações podem estar imprecisas ou incompletas.
+
 # HSP — Hyperspectral Spectral Processing
 
 **HSP** é uma biblioteca Python de código aberto para aquisição, pré-processamento e análise
