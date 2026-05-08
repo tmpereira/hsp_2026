@@ -1,0 +1,1947 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Biblioteca Python para processamento e análise de imagens de Micro-FTIR (microscopia de infravermelho por transformada de Fourier) desenvolvida pelo Prof. Thiago Martini Pereira — UNIFESP.
+">
+      
+      
+        <meta name="author" content="Thiago Martini Pereira">
+      
+      
+        <link rel="canonical" href="https://thiago-martini.github.io/hsp_2026/emsc/">
+      
+      
+        <link rel="prev" href="../sh/">
+      
+      
+        <link rel="next" href="../km/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>emsc.py — Correção de Espalhamento (EMSC) - HSP — Hyperspectral Processing Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modulo-emscpy-correcao-multiplicativa-de-espalhamento-estendida" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="HSP — Hyperspectral Processing Library" class="md-header__button md-logo" aria-label="HSP — Hyperspectral Processing Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HSP — Hyperspectral Processing Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              emsc.py — Correção de Espalhamento (EMSC)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Alternar para modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="Alternar para modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seu_usuario/hsp_2026" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsp_2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../teoria/emsc_teoria/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Teoria
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../instalacao/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Instalação
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../leitura/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guia de Uso
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../file/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Módulos em Detalhe
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../referencia_api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referência da API
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="HSP — Hyperspectral Processing Library" class="md-nav__button md-logo" aria-label="HSP — Hyperspectral Processing Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HSP — Hyperspectral Processing Library
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seu_usuario/hsp_2026" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsp_2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoria
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teoria
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teoria/emsc_teoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extended Multiplicative correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teoria/Pre_processig_theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guia de Uso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guia de Uso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leitura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leitura de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processamento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos em Detalhe
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos em Detalhe
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    file.py — Leitura de Arquivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prep.py — Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qt.py — Controle de Qualidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    rg.py — Histogramas de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sh.py — Visualização de Imagens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    emsc.py — Correção de Espalhamento (EMSC)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    emsc.py — Correção de Espalhamento (EMSC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#o-problema-do-espalhamento-em-micro-ftir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O problema do espalhamento em Micro-FTIR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-modelo-matematico-da-emsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O modelo matemático da EMSC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O modelo matemático da EMSC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-correcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A correção
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-de-trabalho-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo de trabalho completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-do-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções do módulo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções do módulo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pcap-k10-pca-auxiliar-para-extracao-de-padroes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pca(p, k=10) — PCA auxiliar para extração de padrões
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_modeltarget-parafin-para_pcs-polyorder-modelo-emsc-sem-agua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_model(target, parafin, para_pcs, polyorder) — Modelo EMSC sem água
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_model_h2otarget-parafin-para_pcs-h2o-h2o_pcs-polyorder-modelo-emsc-com-agua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_model_h2o(target, parafin, para_pcs, h2o, h2o_pcs, polyorder) — Modelo EMSC com água
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emsc_model_viewmodel-visualizacao-dos-componentes-do-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        emsc_model_view(model) — Visualização dos componentes do modelo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emsc_fitdata-model-aplicacao-da-correcao-emsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        emsc_fit(data, model) — Aplicação da correção EMSC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indices-dos-coeficientes-em-dataemsc_coeff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índices dos coeficientes em data['EMSC_coeff']
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparativo-create_model-vs-create_model_h2o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativo create_model vs create_model_h2o
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../km/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    km.py — Clusterização K-Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../referencia_api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="modulo-emscpy-correcao-multiplicativa-de-espalhamento-estendida">Módulo <code>emsc.py</code> — Correção Multiplicativa de Espalhamento Estendida<a class="headerlink" href="#modulo-emscpy-correcao-multiplicativa-de-espalhamento-estendida" title="Permanent link">&para;</a></h1>
+<p>O módulo <code>emsc</code> implementa a <strong>EMSC</strong> (<em>Extended Multiplicative Scatter
+Correction</em>), uma técnica de pré-processamento espectral desenvolvida
+especificamente para espectroscopia de infravermelho de tecidos biológicos.</p>
+<hr />
+<h2 id="o-problema-do-espalhamento-em-micro-ftir">O problema do espalhamento em Micro-FTIR<a class="headerlink" href="#o-problema-do-espalhamento-em-micro-ftir" title="Permanent link">&para;</a></h2>
+<p>Quando a luz infravermelha interage com uma amostra biológica heterogênea,
+além de ser <strong>absorvida</strong> pelas moléculas (o sinal químico que queremos),
+ela também é <strong>espalhada</strong>. Esse espalhamento físico distorce o espectro
+de várias formas:</p>
+<table>
+<thead>
+<tr>
+<th>Efeito físico</th>
+<th>Causa</th>
+<th>Distorção no espectro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Espessura variável</td>
+<td>Cortes histológicos não perfeitamente uniformes</td>
+<td>Escala multiplicativa diferente em cada pixel</td>
+</tr>
+<tr>
+<td>Efeito de Mie</td>
+<td>Células com tamanho comparável ao comprimento de onda</td>
+<td>Linha de base ondulada (oscilações de longa escala)</td>
+</tr>
+<tr>
+<td>Inclusão em parafina</td>
+<td>Resíduo de parafina não removido na histologia</td>
+<td>Bandas C–H sobrepostas (1300–1500 cm⁻¹)</td>
+</tr>
+<tr>
+<td>Vapor de água</td>
+<td>Purga incompleta do caminho óptico</td>
+<td>Bandas de rotação-vibração da água</td>
+</tr>
+</tbody>
+</table>
+<p>Sem correção, esses efeitos <strong>dominam a variância</strong> dos dados e
+dificultam ou impossibilitam a análise multivariada (K-Means, PCA).</p>
+<hr />
+<h2 id="o-modelo-matematico-da-emsc">O modelo matemático da EMSC<a class="headerlink" href="#o-modelo-matematico-da-emsc" title="Permanent link">&para;</a></h2>
+<p>A EMSC modela cada espectro observado <span class="arithmatex">\(z(\tilde{\nu})\)</span> como soma de
+contribuições físicas e interferentes:</p>
+<div class="arithmatex">\[
+z(\tilde{\nu}) = a_0 \cdot r(\tilde{\nu})
+  + \underbrace{b_0 + b_1\tilde{\nu} + b_2\tilde{\nu}^2 + \cdots}_{\text{baseline polinomial}}
+  + \underbrace{c_1 p_1(\tilde{\nu}) + \cdots + c_m p_m(\tilde{\nu})}_{\text{parafina}}
+  + \underbrace{d_1 h_1(\tilde{\nu}) + \cdots + d_n h_n(\tilde{\nu})}_{\text{água}}
+  + \varepsilon(\tilde{\nu})
+\]</div>
+<p>onde:
+- <span class="arithmatex">\(r(\tilde{\nu})\)</span> — espectro de referência (média espectral do alvo)
+- <span class="arithmatex">\(a_0\)</span> — escala da referência (proporcional à espessura × concentração)
+- <span class="arithmatex">\(b_i\)</span> — coeficientes polinomiais de baseline
+- <span class="arithmatex">\(p_i(\tilde{\nu})\)</span> — componentes principais dos espectros de parafina
+- <span class="arithmatex">\(h_i(\tilde{\nu})\)</span> — componentes principais dos espectros de água
+- <span class="arithmatex">\(\varepsilon\)</span> — resíduo (variação química real + ruído)</p>
+<p>O modelo é <strong>ajustado por mínimos quadrados</strong> para cada pixel,
+estimando os coeficientes <span class="arithmatex">\(a_0, b_i, c_i, d_i\)</span>.</p>
+<h3 id="a-correcao">A correção<a class="headerlink" href="#a-correcao" title="Permanent link">&para;</a></h3>
+<p>Após o ajuste, o espectro corrigido é calculado <strong>subtraindo os
+interferentes e dividindo pela escala</strong>:</p>
+<div class="arithmatex">\[
+z_{\text{corr}}(\tilde{\nu}) = \frac{z(\tilde{\nu}) - \text{(baseline + parafina + água)}}{a_0}
+\]</div>
+<p>O resultado é um espectro normalizado que representa apenas a
+<strong>composição química relativa</strong> do pixel, livre de efeitos físicos.</p>
+<hr />
+<h2 id="fluxo-de-trabalho-completo">Fluxo de trabalho completo<a class="headerlink" href="#fluxo-de-trabalho-completo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. Coletar espectros de referência:
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   • Espectros do tecido-alvo (para a referência r)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   • Espectros puros de parafina (para modelar a contaminação)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   • [Opcional] Espectros de vapor de água
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>2. Construir o modelo:
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>   emsc.create_model()       — sem água
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>   emsc.create_model_h2o()   — com água
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>3. Validar o modelo:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>   emsc.emsc_model_view()    — visualiza cada componente
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>4. Aplicar a correção:
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>   emsc.emsc_fit()           — corrige todos os pixels
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>5. Controle de qualidade pós-correção:
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>   rg.emsc(data, a=0)        — histograma de a₀
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>   qt.otsu_emsc(data)        — remove pixels com a₀ baixo
+</code></pre></div>
+<hr />
+<h2 id="funcoes-do-modulo">Funções do módulo<a class="headerlink" href="#funcoes-do-modulo" title="Permanent link">&para;</a></h2>
+<h3 id="pcap-k10-pca-auxiliar-para-extracao-de-padroes"><code>pca(p, k=10)</code> — PCA auxiliar para extração de padrões<a class="headerlink" href="#pcap-k10-pca-auxiliar-para-extracao-de-padroes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">loadings</span><span class="p">,</span> <span class="n">variancia_pct</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">espectros_parafina</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Realiza PCA via SVD da <strong>matriz de covariância</strong> e retorna os loadings
+(autovetores) das <code>k</code> primeiras componentes. Esta função é usada
+<strong>internamente</strong> por <code>create_model()</code> e <code>create_model_h2o()</code> para
+extrair os padrões espectrais mais representativos da parafina e da água.</p>
+<p><strong>Por que PCA para modelar os interferentes?</strong></p>
+<p>Em vez de usar um único espectro de parafina como regressor, a EMSC usa
+as <code>k</code> primeiras PCs dos espectros de parafina. Isso é mais robusto porque:
+- A parafina pode ter variações entre diferentes lotes ou cortes
+- As PCs capturam toda a variabilidade conhecida do interferente
+- Com 2–3 PCs de parafina, tipicamente ≥ 99% da variância é coberta</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>ndarray <code>(n, m)</code></td>
+<td>Matriz de espectros (linhas = amostras, colunas = números de onda)</td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>int</td>
+<td>Número de PCs a reter (padrão = 10)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retorna:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Shape</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loadings</code></td>
+<td><code>(n_pontos, k)</code></td>
+<td>Autovetores — um loading por coluna</td>
+</tr>
+<tr>
+<td><code>variancia_pct</code></td>
+<td>float</td>
+<td>% da variância total explicada pelas <code>k</code> PCs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemplo:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Verifica quantas PCs são suficientes para a parafina</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">parafina</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">% da variância&#39;</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># k=1: 85.3%</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># k=2: 97.6%</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># k=3: 99.1%   ← geralmente suficiente</span>
+</code></pre></div>
+<hr />
+<h3 id="create_modeltarget-parafin-para_pcs-polyorder-modelo-emsc-sem-agua"><code>create_model(target, parafin, para_pcs, polyorder)</code> — Modelo EMSC sem água<a class="headerlink" href="#create_modeltarget-parafin-para_pcs-polyorder-modelo-emsc-sem-agua" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">target</span>    <span class="o">=</span> <span class="n">data_tecido</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">parafin</span>   <span class="o">=</span> <span class="n">data_parafina</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">para_pcs</span>  <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">polyorder</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Constrói a matriz do modelo EMSC montando coluna a coluna os seguintes
+regressores:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Coluna 0:        Espectro de referência (média dos alvos, normalizado)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Colunas 1..p+1:  Polinômios de baseline (grau 0, 1, …, polyorder)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Colunas seguintes: PCs da parafina (para_pcs colunas)
+</code></pre></div>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target</code></td>
+<td>dict</td>
+<td>Dados do tecido-alvo — usados para calcular o espectro de referência</td>
+</tr>
+<tr>
+<td><code>parafin</code></td>
+<td>dict</td>
+<td>Espectros puros de parafina</td>
+</tr>
+<tr>
+<td><code>para_pcs</code></td>
+<td>int</td>
+<td>Número de PCs da parafina a incluir</td>
+</tr>
+<tr>
+<td><code>polyorder</code></td>
+<td>int</td>
+<td>Grau máximo do polinômio de baseline</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retorna:</strong> dicionário <code>model</code> com:</p>
+<table>
+<thead>
+<tr>
+<th>Chave</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'emsc_matrix'</code></td>
+<td>ndarray <code>(n_pontos, n_regressores)</code> — a matriz de regressão</td>
+</tr>
+<tr>
+<td><code>'legend'</code></td>
+<td>array de strings com o nome de cada coluna</td>
+</tr>
+<tr>
+<td><code>'wn'</code></td>
+<td>vetor de números de onda</td>
+</tr>
+<tr>
+<td><code>'perc_val_para'</code></td>
+<td>% da variância da parafina coberta pelos <code>para_pcs</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Detalhes técnicos importantes:</strong></p>
+<p><em>Espectro de referência normalizado:</em></p>
+<div class="arithmatex">\[
+\mathbf{r} \leftarrow \frac{\bar{\mathbf{z}}}{\|\bar{\mathbf{z}}\|_2}
+\]</div>
+<p>A normalização pela norma euclidiana garante que o coeficiente <span class="arithmatex">\(a_0\)</span>
+tenha escala consistente entre experimentos diferentes.</p>
+<p><em>Polinômios em base normalizada:</em></p>
+<p>O polinômio é construído sobre uma grade <span class="arithmatex">\(\lambda \in [-1, +1]\)</span>
+(e não sobre os valores brutos de cm⁻¹). Isso evita problemas numéricos
+de mal-condicionamento que ocorrem quando se usa <span class="arithmatex">\(\tilde{\nu}^2\)</span> com
+valores na casa de <span class="arithmatex">\(10^6\)</span>.</p>
+<p><em>Região da parafina:</em></p>
+<p>As PCs da parafina são calculadas apenas na janela <strong>1300–1500 cm⁻¹</strong>
+(bandas C–H deformação de parafina), com zeros fora dessa janela.
+Isso evita que as PCs da parafina capturem variações do tecido em
+outras regiões espectrais.</p>
+<p><strong>Como escolher <code>para_pcs</code> e <code>polyorder</code>?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valor mínimo</th>
+<th>Valor típico</th>
+<th>Valor máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>para_pcs</code></td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>polyorder</code></td>
+<td>0</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>emsc.pca(parafina['r'], k=5)</code> para verificar quantas PCs são
+necessárias para cobrir ≥ 99% da variância da parafina.
+Polinômios de grau 2 (constante + linear + quadrático) são suficientes
+para a maioria das variações de baseline em Micro-FTIR.</p>
+<hr />
+<h3 id="create_model_h2otarget-parafin-para_pcs-h2o-h2o_pcs-polyorder-modelo-emsc-com-agua"><code>create_model_h2o(target, parafin, para_pcs, h2o, h2o_pcs, polyorder)</code> — Modelo EMSC com água<a class="headerlink" href="#create_model_h2otarget-parafin-para_pcs-h2o-h2o_pcs-polyorder-modelo-emsc-com-agua" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">create_model_h2o</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">target</span>    <span class="o">=</span> <span class="n">data_tecido</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">parafin</span>   <span class="o">=</span> <span class="n">data_parafina</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">para_pcs</span>  <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">h2o</span>       <span class="o">=</span> <span class="n">data_agua</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">h2o_pcs</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">polyorder</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Igual a <code>create_model()</code>, mas adiciona as PCs do vapor de água como
+regressores extras:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Coluna 0:        Espectro de referência
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Colunas 1..p+1:  Polinômios de baseline
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Colunas seguintes: PCs da parafina
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Últimas colunas: PCs da água (h2o_pcs colunas)
+</code></pre></div>
+<p><strong>Quando usar <code>create_model_h2o()</code> em vez de <code>create_model()</code>?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Situação</th>
+<th>Recomendação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instrumento purga com N₂/ar seco e aquisição estável</td>
+<td><code>create_model()</code> suficiente</td>
+</tr>
+<tr>
+<td>Bandas de vapor de água visíveis (~1350–2000 cm⁻¹ e ~3500–4000 cm⁻¹)</td>
+<td><code>create_model_h2o()</code></td>
+</tr>
+<tr>
+<td>Amostra em meio aquoso ou tecido hidratado</td>
+<td><code>create_model_h2o()</code></td>
+</tr>
+<tr>
+<td>Análise na região 1350–1800 cm⁻¹ onde a água interfere</td>
+<td><code>create_model_h2o()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Parâmetros adicionais em relação a <code>create_model()</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h2o</code></td>
+<td>dict</td>
+<td>Espectros de referência de vapor de água</td>
+</tr>
+<tr>
+<td><code>h2o_pcs</code></td>
+<td>int</td>
+<td>Número de PCs da água a incluir (tipicamente 1–3)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Região da água:</strong></p>
+<p>As PCs da água são calculadas para <code>wn &gt; 1350 cm⁻¹</code>, zerando fora dessa
+janela. A região mais problemática do vapor de água no infravermelho médio
+são as bandas de rotação-vibração entre 1350–2000 cm⁻¹.</p>
+<hr />
+<h3 id="emsc_model_viewmodel-visualizacao-dos-componentes-do-modelo"><code>emsc_model_view(model)</code> — Visualização dos componentes do modelo<a class="headerlink" href="#emsc_model_viewmodel-visualizacao-dos-componentes-do-modelo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">emsc</span><span class="o">.</span><span class="n">emsc_model_view</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Plota cada coluna da matriz do modelo em uma figura separada, com o
+nome do regressor como título. Permite inspecionar visualmente se os
+componentes têm a forma espectral esperada.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>dict</td>
+<td>Modelo retornado por <code>create_model()</code> ou <code>create_model_h2o()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>O que verificar em cada componente:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Forma esperada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mean_spc</code></td>
+<td>Espectro típico do tecido com bandas de Amida I (1650), Amida II (1546), etc.</td>
+</tr>
+<tr>
+<td><code>poly 0</code></td>
+<td>Linha horizontal constante</td>
+</tr>
+<tr>
+<td><code>poly 1</code></td>
+<td>Linha diagonal (rampa)</td>
+</tr>
+<tr>
+<td><code>poly 2</code></td>
+<td>Parábola (forma de U ou ∩)</td>
+</tr>
+<tr>
+<td><code>para 1</code></td>
+<td>Picos em ~1378 e ~1468 cm⁻¹ (C–H deformação da parafina)</td>
+</tr>
+<tr>
+<td><code>h2o 1</code></td>
+<td>Oscilações características da água em 1350–2000 cm⁻¹</td>
+</tr>
+</tbody>
+</table>
+<p>Se os componentes não tiverem a forma esperada, verifique se os dados de
+parafina e água foram carregados corretamente e se os números de onda
+são compatíveis com <code>target</code>.</p>
+<hr />
+<h3 id="emsc_fitdata-model-aplicacao-da-correcao-emsc"><code>emsc_fit(data, model)</code> — Aplicação da correção EMSC<a class="headerlink" href="#emsc_fitdata-model-aplicacao-da-correcao-emsc" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">data</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">emsc_fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Aplica o modelo a todos os pixels de <code>data['r']</code>, gerando os espectros
+corrigidos. É a função central do módulo.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dados hsp com <code>'r'</code> (modificado in-place)</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>dict</td>
+<td>Modelo retornado por <code>create_model()</code> ou <code>create_model_h2o()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retorna:</strong> o mesmo <code>data</code>, agora com:</p>
+<table>
+<thead>
+<tr>
+<th>Chave adicionada</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data['r']</code></td>
+<td>Espectros corrigidos (substitui os originais)</td>
+</tr>
+<tr>
+<td><code>data['EMSC_model']</code></td>
+<td>Matriz do modelo utilizada</td>
+</tr>
+<tr>
+<td><code>data['EMSC_coeff']</code></td>
+<td>Coeficientes β — shape <code>(n_pixels, n_regressores)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>O algoritmo passo a passo:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Para cada pixel i:
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    1. Resolve:  model[&#39;emsc_matrix&#39;] · β_i = z_i
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>       via mínimos quadrados (np.linalg.lstsq)
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    2. Subtrai os interferentes:
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>       z_corr_i = z_i - Σ(col_j · β_j)   para j = 1..n (tudo exceto col 0)
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    3. Normaliza pela referência:
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>       z_final_i = z_corr_i / β_0
+</code></pre></div>
+<p>Na prática, o passo 1 é resolvido em lote para todos os pixels
+simultaneamente (operação matricial), o que torna o cálculo eficiente
+mesmo para imagens grandes (dezenas de milhares de pixels).</p>
+<p><strong>Depois do <code>emsc_fit()</code> — verificação obrigatória:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 1. Plota espectros aleatórios — baselines devem estar planas</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.sh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sh</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nspc</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># 2. Visualiza o mapa de a₀ — deve refletir a espessura da amostra</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">sh</span><span class="o">.</span><span class="n">emsc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># 3. Histograma de a₀ para escolher limiar de qualidade</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.rg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rg</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">rg</span><span class="o">.</span><span class="n">emsc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="c1"># 4. Controle de qualidade automático baseado em a₀</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.qt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qt</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="n">data</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">otsu_emsc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="indices-dos-coeficientes-em-dataemsc_coeff">Índices dos coeficientes em <code>data['EMSC_coeff']</code><a class="headerlink" href="#indices-dos-coeficientes-em-dataemsc_coeff" title="Permanent link">&para;</a></h2>
+<p>Após <code>emsc_fit()</code>, <code>data['EMSC_coeff']</code> tem shape <code>(n_pixels, n_regressores)</code>.
+A coluna de cada coeficiente depende dos parâmetros usados na criação do modelo:</p>
+<p><strong>Para <code>create_model(target, parafin, para_pcs=3, polyorder=2)</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Coluna</th>
+<th>Nome</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><span class="arithmatex">\(a_0\)</span></td>
+<td>Escala da referência (espessura × conc.)</td>
+</tr>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(b_0\)</span></td>
+<td>Offset de baseline (constante)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="arithmatex">\(b_1\)</span></td>
+<td>Inclinação linear de baseline</td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="arithmatex">\(b_2\)</span></td>
+<td>Curvatura quadrática de baseline</td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="arithmatex">\(c_1\)</span></td>
+<td>Contribuição da PC1 da parafina</td>
+</tr>
+<tr>
+<td>5</td>
+<td><span class="arithmatex">\(c_2\)</span></td>
+<td>Contribuição da PC2 da parafina</td>
+</tr>
+<tr>
+<td>6</td>
+<td><span class="arithmatex">\(c_3\)</span></td>
+<td>Contribuição da PC3 da parafina</td>
+</tr>
+</tbody>
+</table>
+<p>A fórmula geral do índice de início das PCs de parafina é
+<code>1 + polyorder + 1</code> (1 referência + (polyorder+1) termos polinomiais).</p>
+<hr />
+<h2 id="exemplo-completo">Exemplo completo<a class="headerlink" href="#exemplo-completo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.file</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">file</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.prep</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">prep</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.emsc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">emsc</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.rg</span><span class="w">   </span><span class="k">as</span><span class="w"> </span><span class="nn">rg</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.qt</span><span class="w">   </span><span class="k">as</span><span class="w"> </span><span class="nn">qt</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.sh</span><span class="w">   </span><span class="k">as</span><span class="w"> </span><span class="nn">sh</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># ── 1. Carrega os dados ─────────────────────────────────────────────────</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">data</span>     <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">fsm</span><span class="p">(</span><span class="s1">&#39;tecido.fsm&#39;</span><span class="p">)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">parafina</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">fsm</span><span class="p">(</span><span class="s1">&#39;parafina_pura.fsm&#39;</span><span class="p">)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1"># ── 2. Corte espectral (antes do EMSC) ─────────────────────────────────</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="n">data</span>     <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>     <span class="mi">900</span><span class="p">,</span> <span class="mi">3800</span><span class="p">)</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="n">parafina</span> <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">parafina</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">3800</span><span class="p">)</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="c1"># ── 3. Verifica quantas PCs cobrem a variância da parafina ─────────────</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">parafina</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="c1"># ── 4. Constrói o modelo ────────────────────────────────────────────────</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="n">model</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>    <span class="n">target</span>    <span class="o">=</span> <span class="n">data</span><span class="p">,</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>    <span class="n">parafin</span>   <span class="o">=</span> <span class="n">parafina</span><span class="p">,</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>    <span class="n">para_pcs</span>  <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>    <span class="n">polyorder</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="p">)</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="c1"># ── 5. Valida o modelo visualmente ─────────────────────────────────────</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="n">emsc</span><span class="o">.</span><span class="n">emsc_model_view</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="c1"># ── 6. Aplica a correção ────────────────────────────────────────────────</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="n">data</span> <span class="o">=</span> <span class="n">emsc</span><span class="o">.</span><span class="n">emsc_fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="c1"># ── 7. Verifica os espectros corrigidos ────────────────────────────────</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nspc</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>   <span class="c1"># baselines devem estar planas e centradas</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="c1"># ── 8. Controle de qualidade baseado no coeficiente a₀ ─────────────────</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="n">rg</span><span class="o">.</span><span class="n">emsc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="n">data</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">otsu_emsc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="c1"># ── 9. Análise multivariada ────────────────────────────────────────────</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="comparativo-create_model-vs-create_model_h2o">Comparativo <code>create_model</code> vs <code>create_model_h2o</code><a class="headerlink" href="#comparativo-create_model-vs-create_model_h2o" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th><code>create_model</code></th>
+<th><code>create_model_h2o</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interferentes removidos</td>
+<td>Parafina + baseline</td>
+<td>Parafina + água + baseline</td>
+</tr>
+<tr>
+<td>Dados extras necessários</td>
+<td>Apenas parafina</td>
+<td>Parafina + espectros de água</td>
+</tr>
+<tr>
+<td>Número de regressores</td>
+<td>1 + (poly+1) + para_pcs</td>
+<td>1 + (poly+1) + para_pcs + h2o_pcs</td>
+</tr>
+<tr>
+<td>Quando usar</td>
+<td>Instrumento bem purgado</td>
+<td>Bandas de água visíveis nos espectros</td>
+</tr>
+<tr>
+<td>Complexidade</td>
+<td>Menor</td>
+<td>Maior</td>
+</tr>
+</tbody>
+</table>
+<p>Para a maioria dos experimentos de Micro-FTIR de tecidos em parafina
+com boa purga do instrumento, <code>create_model()</code> com <code>para_pcs=3</code> e
+<code>polyorder=2</code> é suficiente.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/seu_usuario/hsp_2026" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "toc.integrate", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

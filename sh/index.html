@@ -1,0 +1,1912 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Biblioteca Python para processamento e análise de imagens de Micro-FTIR (microscopia de infravermelho por transformada de Fourier) desenvolvida pelo Prof. Thiago Martini Pereira — UNIFESP.
+">
+      
+      
+        <meta name="author" content="Thiago Martini Pereira">
+      
+      
+        <link rel="canonical" href="https://thiago-martini.github.io/hsp_2026/sh/">
+      
+      
+        <link rel="prev" href="../rg/">
+      
+      
+        <link rel="next" href="../emsc/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>sh.py — Visualização de Imagens - HSP — Hyperspectral Processing Library</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modulo-shpy-visualizacao-de-imagens-hiperespectrais" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="HSP — Hyperspectral Processing Library" class="md-header__button md-logo" aria-label="HSP — Hyperspectral Processing Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HSP — Hyperspectral Processing Library
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sh.py — Visualização de Imagens
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Alternar para modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="Alternar para modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seu_usuario/hsp_2026" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsp_2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../teoria/emsc_teoria/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Teoria
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../instalacao/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Instalação
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../leitura/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guia de Uso
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../file/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Módulos em Detalhe
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../referencia_api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referência da API
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="HSP — Hyperspectral Processing Library" class="md-nav__button md-logo" aria-label="HSP — Hyperspectral Processing Library" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HSP — Hyperspectral Processing Library
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seu_usuario/hsp_2026" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsp_2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoria
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teoria
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teoria/emsc_teoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extended Multiplicative correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teoria/Pre_processig_theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guia de Uso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guia de Uso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leitura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leitura de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processamento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos em Detalhe
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos em Detalhe
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    file.py — Leitura de Arquivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prep.py — Pré-Processamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qt.py — Controle de Qualidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    rg.py — Histogramas de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sh.py — Visualização de Imagens
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sh.py — Visualização de Imagens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#o-principio-da-reconstrucao-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O princípio da reconstrução 2D
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-do-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções do módulo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções do módulo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inttdata-b-imagem-de-intensidade-num-ponto-espectral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        intt(data, b) — Imagem de intensidade num ponto espectral
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#areadata-a-b-imagem-de-area-integrada-de-uma-banda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        area(data, a, b) — Imagem de área integrada de uma banda
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meandata-ini1-fim1-imagem-de-escala-relativa-ao-espectro-medio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mean(data, ini1, fim1) — Imagem de escala relativa ao espectro médio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pplotdata-nspc-espectros-aleatorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pplot(data, nspc) — Espectros aleatórios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emscdata-b-imagem-de-um-coeficiente-do-modelo-emsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        emsc(data, b) — Imagem de um coeficiente do modelo EMSC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#int_pltdata-b-inspecao-interativa-pixel-a-pixel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        int_plt(data, b) — Inspeção interativa pixel a pixel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcdata-n-k10-imagem-e-loading-de-componente-principal-pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pc(data, n, k=10) — Imagem e loading de componente principal (PCA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparativo-das-funcoes-de-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativo das funções de imagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-de-exploracao-visual-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow de exploração visual recomendado
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emsc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    emsc.py — Correção de Espalhamento (EMSC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../km/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    km.py — Clusterização K-Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../referencia_api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="modulo-shpy-visualizacao-de-imagens-hiperespectrais">Módulo <code>sh.py</code> — Visualização de Imagens Hiperespectrais<a class="headerlink" href="#modulo-shpy-visualizacao-de-imagens-hiperespectrais" title="Permanent link">&para;</a></h1>
+<p>O módulo <code>sh</code> (<em>show</em>) é a <strong>janela visual</strong> da biblioteca <code>hsp_2026</code>.
+Ele transforma o vetor de espectros armazenado em <code>data['r']</code> em mapas
+de imagem bidimensionais, revelando a distribuição espacial de compostos
+químicos, espessuras e padrões multivariados na amostra.</p>
+<hr />
+<h2 id="o-principio-da-reconstrucao-2d">O princípio da reconstrução 2D<a class="headerlink" href="#o-principio-da-reconstrucao-2d" title="Permanent link">&para;</a></h2>
+<p>Após os filtros do <code>qt.py</code>, os pixels válidos ficam compactados em
+<code>data['r']</code> (linhas = pixels, colunas = números de onda), mas a <strong>posição
+espacial original</strong> de cada pixel é preservada na máscara <code>data['sel']</code>.</p>
+<p>Todas as funções do <code>sh.py</code> usam o mesmo procedimento para reconstruir
+a grade 2D:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Calcula um valor escalar para cada pixel válido</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">valor</span> <span class="o">=</span> <span class="o">...</span>                                 <span class="c1"># vetor de comprimento n_válidos</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 2. Cria uma grade com zeros (inclui pixels removidos)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">dplot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dy&#39;</span><span class="p">])</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 3. Insere os valores nos pixels corretos</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">dplot</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;sel&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">valor</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># 4. Reshapa para a grade 2D original</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">dplot</span> <span class="o">=</span> <span class="n">dplot</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dy&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>Os pixels removidos aparecem como zero (preto na maioria dos colormaps),
+delimitando visualmente a região de amostra válida.</p>
+<hr />
+<h2 id="funcoes-do-modulo">Funções do módulo<a class="headerlink" href="#funcoes-do-modulo" title="Permanent link">&para;</a></h2>
+<h3 id="inttdata-b-imagem-de-intensidade-num-ponto-espectral"><code>intt(data, b)</code> — Imagem de intensidade num ponto espectral<a class="headerlink" href="#inttdata-b-imagem-de-intensidade-num-ponto-espectral" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1650</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Cria um mapa 2D onde o valor de cada pixel é a <strong>absorbância no número
+de onda mais próximo de <code>b</code></strong> cm⁻¹.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code>, <code>'wn'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'sel'</code>, <code>'filename'</code></td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>float</td>
+<td>Número de onda em cm⁻¹</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bandas de referência típicas:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Banda (cm⁻¹)</th>
+<th>Molécula</th>
+<th>Aplicação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1650</td>
+<td>Amida I (C=O de proteínas)</td>
+<td>Distribuição de proteínas</td>
+</tr>
+<tr>
+<td>1546</td>
+<td>Amida II (N–H de proteínas)</td>
+<td>Confirmação de proteínas</td>
+</tr>
+<tr>
+<td>1740</td>
+<td>C=O de ésteres (lipídios)</td>
+<td>Distribuição de lipídios</td>
+</tr>
+<tr>
+<td>2924</td>
+<td>CH₂ assimétrico (cadeia carbônica)</td>
+<td>Lipídios insaturados</td>
+</tr>
+<tr>
+<td>1085</td>
+<td>P=O simétrico (ácidos nucleicos)</td>
+<td>DNA/RNA</td>
+</tr>
+<tr>
+<td>1240</td>
+<td>P=O assimétrico</td>
+<td>Ácidos nucleicos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemplo:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.sh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sh</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1650</span><span class="p">)</span>   <span class="c1"># mapa de distribuição de proteínas</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1740</span><span class="p">)</span>   <span class="c1"># mapa de distribuição de lipídios</span>
+</code></pre></div>
+<p><strong>Detalhes técnicos:</strong></p>
+<p>A função usa <code>data['wn'] &gt; b</code> e pega a <strong>primeira coluna</strong>, ou seja,
+o ponto imediatamente acima de <code>b</code>. Para espectros com resolução de
+4 cm⁻¹, o erro de posicionamento é ≤ 4 cm⁻¹, irrelevante na prática.</p>
+<hr />
+<h3 id="areadata-a-b-imagem-de-area-integrada-de-uma-banda"><code>area(data, a, b)</code> — Imagem de área integrada de uma banda<a class="headerlink" href="#areadata-a-b-imagem-de-area-integrada-de-uma-banda" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1600</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1700</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Calcula a <strong>área integrada</strong> (regra do trapézio) entre <code>a</code> e <code>b</code> cm⁻¹
+para cada pixel e gera o mapa 2D dessas áreas:</p>
+<div class="arithmatex">\[
+A_i = \int_{a}^{b} z_i(\tilde{\nu})\,d\tilde{\nu}
+\;\approx\;
+\sum_{k} \frac{z_i(\tilde{\nu}_k) + z_i(\tilde{\nu}_{k+1})}{2}
+\,\Delta\tilde{\nu}
+\]</div>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code>, <code>'wn'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'sel'</code>, <code>'filename'</code></td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>float</td>
+<td>Limite inferior da banda (cm⁻¹)</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>float</td>
+<td>Limite superior da banda (cm⁻¹)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Vantagem sobre <code>intt()</code>:</strong></p>
+<p>Ao integrar sobre uma faixa, <code>area()</code> é mais resistente a:
+- Ruído espectral pontual
+- Pequenas variações no centro de banda entre pixels (deslocamento químico)
+- Sobreposição de bandas vizinhas estreitas</p>
+<p>Prefira <code>area()</code> quando a banda de interesse tem largura significativa
+(ex.: Amida I 1600–1700 cm⁻¹, fingerprint 900–1800 cm⁻¹).</p>
+<p><strong>Exemplo:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1600</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1700</span><span class="p">)</span>   <span class="c1"># mapa de Amida I integrada</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">sh</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>  <span class="n">b</span><span class="o">=</span><span class="mi">1800</span><span class="p">)</span>   <span class="c1"># mapa da fingerprint completa (~ espessura total)</span>
+</code></pre></div>
+<hr />
+<h3 id="meandata-ini1-fim1-imagem-de-escala-relativa-ao-espectro-medio"><code>mean(data, ini1, fim1)</code> — Imagem de escala relativa ao espectro médio<a class="headerlink" href="#meandata-ini1-fim1-imagem-de-escala-relativa-ao-espectro-medio" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">dplot</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ini1</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">fim1</span><span class="o">=</span><span class="mi">1800</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Para cada pixel, ajusta o modelo:</p>
+<div class="arithmatex">\[
+\mathbf{z}_i \approx \alpha_i \cdot \bar{\mathbf{z}} + c_i
+\]</div>
+<p>via mínimos quadrados, onde <span class="arithmatex">\(\bar{\mathbf{z}}\)</span> é o <strong>espectro médio
+global</strong> da região selecionada. O coeficiente <span class="arithmatex">\(\alpha_i\)</span> é mapeado
+como imagem.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code>, <code>'wn'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'sel'</code>, <code>'filename'</code></td>
+</tr>
+<tr>
+<td><code>ini1</code></td>
+<td>float</td>
+<td>Limite inferior da região (cm⁻¹)</td>
+</tr>
+<tr>
+<td><code>fim1</code></td>
+<td>float</td>
+<td>Limite superior da região (cm⁻¹)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retorna:</strong> <code>dplot</code> — a imagem 2D como ndarray <code>(dx, dy)</code></p>
+<p><strong>Interpretação do coeficiente α:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Valor de α</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>α ≈ 1</td>
+<td>Pixel "médio" — forma e intensidade típicas</td>
+</tr>
+<tr>
+<td>α &gt; 1</td>
+<td>Pixel mais intenso que a média (amostra mais espessa)</td>
+</tr>
+<tr>
+<td>α &lt; 1</td>
+<td>Pixel menos intenso que a média (amostra mais fina)</td>
+</tr>
+<tr>
+<td>α ≈ 0</td>
+<td>Pixel de fundo ou borda (quase sem sinal)</td>
+</tr>
+<tr>
+<td>α &lt; 0</td>
+<td>Artefato (forma espectral invertida — artefato de Mie)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quando usar <code>mean()</code> em vez de <code>area()</code>?</strong></p>
+<p><code>mean()</code> normaliza pela <strong>forma</strong> do espectro médio, não apenas pela
+magnitude. É mais informativo em amostras heterogêneas onde diferentes
+regiões têm composições diferentes: enquanto <code>area()</code> mede apenas "quanto
+absorve", <code>mean()</code> mede "quanto aquele pixel se parece com o padrão
+típico da amostra, em termos de escala".</p>
+<hr />
+<h3 id="pplotdata-nspc-espectros-aleatorios"><code>pplot(data, nspc)</code> — Espectros aleatórios<a class="headerlink" href="#pplotdata-nspc-espectros-aleatorios" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nspc</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Seleciona <code>nspc</code> pixels aleatoriamente e plota seus espectros sobrepostos
+numa única figura. É uma ferramenta de <strong>inspeção rápida</strong> da qualidade
+espectral.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code> e <code>'wn'</code></td>
+</tr>
+<tr>
+<td><code>nspc</code></td>
+<td>int</td>
+<td>Número de espectros a plotar</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quando usar:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Depois de cada etapa do pipeline, use pplot() para verificar</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">fsm</span><span class="p">(</span><span class="s1">&#39;tecido.fsm&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>     <span class="c1"># espectros brutos — verifica a aquisição</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">data</span> <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>     <span class="c1"># após corte — confirma a faixa espectral</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">data</span> <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">snv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>     <span class="c1"># após normalização — verifica se baselines estão corrigidas</span>
+</code></pre></div>
+<p><strong>Dica:</strong> Use <code>nspc=5</code> para uma visão rápida e <code>nspc=50</code> para uma
+inspeção mais estatística da variabilidade da imagem.</p>
+<hr />
+<h3 id="emscdata-b-imagem-de-um-coeficiente-do-modelo-emsc"><code>emsc(data, b)</code> — Imagem de um coeficiente do modelo EMSC<a class="headerlink" href="#emscdata-b-imagem-de-um-coeficiente-do-modelo-emsc" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">emsc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>   <span class="c1"># mapa do coeficiente a₀</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Mapeia o coeficiente de índice <code>b</code> do modelo EMSC como imagem 2D.
+Requer que <code>emsc.emsc_fit()</code> tenha sido executado antes.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'EMSC_coeff'</code>, <code>'sel'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'filename'</code></td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>int</td>
+<td>Índice do coeficiente EMSC (0-based)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices dos coeficientes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Índice <code>b</code></th>
+<th>Coeficiente</th>
+<th>Mapa representa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><span class="arithmatex">\(a_0\)</span></td>
+<td>Distribuição de "quantidade de amostra biológica"</td>
+</tr>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(b_0\)</span></td>
+<td>Variação do offset de baseline pela imagem</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="arithmatex">\(b_1\)</span></td>
+<td>Variação da inclinação da baseline</td>
+</tr>
+<tr>
+<td>3+</td>
+<td><span class="arithmatex">\(c_k\)</span></td>
+<td>Distribuição espacial de cada interferente (parafina, água)</td>
+</tr>
+</tbody>
+</table>
+<p>O mapa de <span class="arithmatex">\(a_0\)</span> (índice 0) é o mais frequentemente usado porque
+corresponde diretamente à <strong>espessura efetiva de material biológico</strong>
+em cada pixel, já corrigida para parafina e variações de baseline.</p>
+<hr />
+<h3 id="int_pltdata-b-inspecao-interativa-pixel-a-pixel"><code>int_plt(data, b)</code> — Inspeção interativa pixel a pixel<a class="headerlink" href="#int_pltdata-b-inspecao-interativa-pixel-a-pixel" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">sh</span><span class="o">.</span><span class="n">int_plt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1650</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Exibe o mapa de intensidade no número de onda <code>b</code> e entra em <strong>modo
+interativo</strong>: você clica num pixel e o espectro completo daquele pixel
+é exibido numa segunda figura. O ciclo repete até clicar próximo da
+borda (x ≤ 5 ou y ≤ 5), que encerra o loop.</p>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code>, <code>'wn'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'sel'</code></td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>float</td>
+<td>Número de onda (cm⁻¹) usado para gerar o mapa base</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fluxo de uso:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1. sh.int_plt(data, 1650) → exibe o mapa de Amida I
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2. Clique numa região de interesse na imagem
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>3. Uma segunda janela abre com o espectro daquele pixel
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>4. Clique em outra região para ver outro espectro
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>5. Clique na borda do mapa (canto inferior esquerdo) para sair
+</code></pre></div>
+<p><strong>Quando usar:</strong></p>
+<p><code>int_plt()</code> é ideal para <strong>investigar pixels anômalos</strong> identificados
+nos mapas de imagem: um cluster com cor diferente na imagem de K-Means,
+uma região com <span class="arithmatex">\(\alpha\)</span> muito alto no mapa <code>mean()</code>, etc. Ao clicar
+naquele pixel, você vê imediatamente se o espectro apresenta alguma
+anomalia (saturação, artefato de Mie, contaminação).</p>
+<p><strong>Nota técnica:</strong></p>
+<p>Internamente, a função reconstrói o tensor 3D <code>(dx, dy, n_pontos)</code> para
+acesso por coordenada <code>[linha, coluna]</code>. Há uma troca de eixos (<code>xx</code> e
+<code>yy</code>) para corrigir a diferença entre a convenção de <code>plt.ginput()</code>
+(retorna <code>x</code> = coluna, <code>y</code> = linha) e a convenção matricial (linha, coluna).</p>
+<hr />
+<h3 id="pcdata-n-k10-imagem-e-loading-de-componente-principal-pca"><code>pc(data, n, k=10)</code> — Imagem e loading de componente principal (PCA)<a class="headerlink" href="#pcdata-n-k10-imagem-e-loading-de-componente-principal-pca" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">scores</span><span class="p">,</span> <span class="n">loadings</span><span class="p">,</span> <span class="n">var_pct</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">scores</span><span class="p">,</span> <span class="n">loadings</span><span class="p">,</span> <span class="n">var_pct</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>O que faz:</strong></p>
+<p>Realiza a <strong>Análise de Componentes Principais</strong> (PCA) via Decomposição
+em Valores Singulares (SVD) e exibe:</p>
+<ul>
+<li><strong>Painel esquerdo</strong>: mapa 2D dos scores da PC<code>n</code> (colormap RdBu_r divergente)</li>
+<li><strong>Painel direito</strong>: loading espectral da PC<code>n</code> (contribuição de cada banda)</li>
+</ul>
+<p><strong>Parâmetros:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>dict</td>
+<td>Dicionário hsp com <code>'r'</code>, <code>'wn'</code>, <code>'dx'</code>, <code>'dy'</code>, <code>'sel'</code>, <code>'filename'</code></td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>Índice da PC a visualizar (<strong>1-based</strong>: <code>n=1</code> → PC1, <code>n=2</code> → PC2…)</td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>int</td>
+<td>Número de PCs calculadas pelo SVD (padrão = 10)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Retorna:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Tipo</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scores</code></td>
+<td>ndarray <code>(n_pixels,)</code></td>
+<td>Score da PC<code>n</code> para cada pixel válido</td>
+</tr>
+<tr>
+<td><code>loadings</code></td>
+<td>ndarray <code>(n_pontos,)</code></td>
+<td>Loading espectral da PC<code>n</code></td>
+</tr>
+<tr>
+<td><code>var_pct</code></td>
+<td>float</td>
+<td>% da variância total explicada pela PC<code>n</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>O que é PCA?</strong></p>
+<p>PCA encontra as <strong>direções de máxima variância</strong> no espaço espectral.
+A matriz de espectros <span class="arithmatex">\(\mathbf{X}\)</span> (pixels × números de onda) é decomposta como:</p>
+<div class="arithmatex">\[
+\mathbf{X} = \mathbf{T}\,\mathbf{P}^T + \mathbf{E}
+\]</div>
+<p>onde:
+- <span class="arithmatex">\(\mathbf{T}\)</span> — <strong>scores</strong> (pixels × PCs): coordenada de cada pixel no espaço das PCs
+- <span class="arithmatex">\(\mathbf{P}\)</span> — <strong>loadings</strong> (PCs × números de onda): direção espectral de cada PC
+- <span class="arithmatex">\(\mathbf{E}\)</span> — resíduo não explicado</p>
+<p>O algoritmo de <code>pc()</code>:</p>
+<ol>
+<li><strong>Centralização</strong>: <span class="arithmatex">\(\mathbf{X}_c = \mathbf{X} - \bar{\mathbf{z}}\)</span> — subtrai o espectro médio</li>
+<li><strong>SVD</strong>: <span class="arithmatex">\(\mathbf{X}_c = \mathbf{U}\,\mathbf{S}\,\mathbf{V}^T\)</span></li>
+<li><strong>Scores</strong>: <span class="arithmatex">\(\mathbf{T} = \mathbf{U} \cdot \text{diag}(\mathbf{S})\)</span></li>
+<li><strong>Variância da PC</strong><span class="arithmatex">\(n\)</span>: <span class="arithmatex">\(\text{var}_n = S_n^2 \,/\, \sum_i S_i^2\)</span></li>
+</ol>
+<p><strong>Interpretação dos scores:</strong></p>
+<p>O colormap <strong>RdBu_r</strong> (vermelho–branco–azul) é usado porque os scores
+são centrados em zero:</p>
+<ul>
+<li><strong>Vermelho</strong> (score positivo): pixels cujo espectro é <strong>semelhante ao loading</strong></li>
+<li><strong>Azul</strong> (score negativo): pixels cujo espectro é <strong>oposto ao loading</strong></li>
+<li><strong>Branco</strong> (score ≈ 0): pixels neutros em relação a essa PC</li>
+</ul>
+<p><strong>Interpretação dos loadings:</strong></p>
+<p>O loading espectral indica <strong>quais bandas definem aquela PC</strong>:</p>
+<ul>
+<li>Pico positivo no loading → banda associada às regiões vermelhas do mapa</li>
+<li>Pico negativo no loading → banda associada às regiões azuis do mapa</li>
+</ul>
+<p><strong>Exemplo de interpretação:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>PC1 — 45% da variância
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  Loading: pico positivo em 1650 (Amida I) e 1546 (Amida II)
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>           pico negativo em 1740 (C=O lipídico)
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  → PC1 separa regiões ricas em proteína (vermelho) de regiões
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    ricas em lipídio (azul)
+</code></pre></div>
+<p><strong>Quantas PCs calcular (<code>k</code>)?</strong></p>
+<p>O parâmetro <code>k</code> controla o número de PCs no SVD econômico. Você sempre
+pode usar <code>n &lt; k</code>. Aumentar <code>k</code> não muda as PCs anteriores, mas aumenta
+o tempo de cálculo. Valores típicos:</p>
+<table>
+<thead>
+<tr>
+<th>Situação</th>
+<th>k recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exploração inicial</td>
+<td>5–10</td>
+</tr>
+<tr>
+<td>Análise detalhada</td>
+<td>10–20</td>
+</tr>
+<tr>
+<td>Comparação de muitas PCs</td>
+<td>20–30</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemplo completo:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.sh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sh</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Explora as primeiras 3 PCs</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">scores</span><span class="p">,</span> <span class="n">loadings</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PC</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">% da variância&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Salva os scores da PC1 para análise posterior</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">scores_pc1</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="comparativo-das-funcoes-de-imagem">Comparativo das funções de imagem<a class="headerlink" href="#comparativo-das-funcoes-de-imagem" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Métrica por pixel</th>
+<th>Precisa de EMSC?</th>
+<th>Interativa?</th>
+<th>Retorna valor?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>intt(data, b)</code></td>
+<td>Intensidade num ponto</td>
+<td>Não</td>
+<td>Não</td>
+<td>Não</td>
+</tr>
+<tr>
+<td><code>area(data, a, b)</code></td>
+<td>Área integrada (trapézio)</td>
+<td>Não</td>
+<td>Não</td>
+<td>Não</td>
+</tr>
+<tr>
+<td><code>mean(data, ini, fim)</code></td>
+<td>Coeficiente α (regressão)</td>
+<td>Não</td>
+<td>Não</td>
+<td>Sim (<code>dplot</code>)</td>
+</tr>
+<tr>
+<td><code>emsc(data, b)</code></td>
+<td>Coeficiente EMSC</td>
+<td><strong>Sim</strong></td>
+<td>Não</td>
+<td>Não</td>
+</tr>
+<tr>
+<td><code>int_plt(data, b)</code></td>
+<td>Intensidade num ponto</td>
+<td>Não</td>
+<td><strong>Sim</strong></td>
+<td>Não</td>
+</tr>
+<tr>
+<td><code>pc(data, n, k)</code></td>
+<td>Score da PCn (SVD)</td>
+<td>Não</td>
+<td>Não</td>
+<td>Sim (<code>scores, loadings, var</code>)</td>
+</tr>
+<tr>
+<td><code>pplot(data, nspc)</code></td>
+<td>— (espectros, não imagem)</td>
+<td>Não</td>
+<td>Não</td>
+<td>Não</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="workflow-de-exploracao-visual-recomendado">Workflow de exploração visual recomendado<a class="headerlink" href="#workflow-de-exploracao-visual-recomendado" title="Permanent link">&para;</a></h2>
+<p>Um pipeline típico de exploração de uma nova amostra usa várias funções
+do <code>sh.py</code> em sequência:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.file</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">file</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.qt</span><span class="w">   </span><span class="k">as</span><span class="w"> </span><span class="nn">qt</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.prep</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">prep</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hsp_2026.sh</span><span class="w">   </span><span class="k">as</span><span class="w"> </span><span class="nn">sh</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># ── 1. Carrega e verifica a qualidade ────────────────────────────────────</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">fsm</span><span class="p">(</span><span class="s1">&#39;tecido.fsm&#39;</span><span class="p">)</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nspc</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>           <span class="c1"># inspeção de espectros brutos</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="c1"># ── 2. Controle de qualidade ─────────────────────────────────────────────</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="n">data</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">otsu_area</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1650</span><span class="p">)</span>               <span class="c1"># confirma que apenas amostra está presente</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># ── 3. Pré-processamento ─────────────────────────────────────────────────</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="n">data</span> <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="n">data</span> <span class="o">=</span> <span class="n">prep</span><span class="o">.</span><span class="n">snv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="n">sh</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nspc</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>           <span class="c1"># verifica espectros após normalização</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="c1"># ── 4. Exploração química ─────────────────────────────────────────────────</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1650</span><span class="p">)</span>               <span class="c1"># proteínas</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="n">sh</span><span class="o">.</span><span class="n">intt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1740</span><span class="p">)</span>               <span class="c1"># lipídios</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="n">sh</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1600</span><span class="p">,</span> <span class="mi">1700</span><span class="p">)</span>         <span class="c1"># Amida I integrada</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="c1"># ── 5. PCA para padrões multivariados ────────────────────────────────────</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                  <span class="c1"># principal fonte de variação</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>                  <span class="c1"># segunda fonte de variação</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="n">sh</span><span class="o">.</span><span class="n">pc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>                  <span class="c1"># terceira...</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="c1"># ── 6. Inspeção pontual de regiões de interesse ──────────────────────────</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="n">sh</span><span class="o">.</span><span class="n">int_plt</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1650</span><span class="p">)</span>            <span class="c1"># clica em pixels específicos para ver espectros</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/seu_usuario/hsp_2026" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "toc.integrate", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
