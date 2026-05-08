@@ -4,10 +4,10 @@ site_description: >
   Micro-FTIR (microscopia de infravermelho por transformada de Fourier)
   desenvolvida pelo Prof. Thiago Martini Pereira — UNIFESP.
 site_author: Thiago Martini Pereira
-site_url: https://thiago-martini.github.io/hsp_2026
+site_url: https://tmpereira.github.io/hsp_2026
 
 repo_name: hsp_2026
-repo_url: https://github.com/seu_usuario/hsp_2026
+repo_url: https://github.com/tmpereira/hsp_2026
 edit_uri: edit/main/docs/
 
 theme:
