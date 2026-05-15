@@ -1,0 +1,17 @@
+/* Ajustes visuais para a documentação HSP */
+
+/* Tamanho base do texto corrido */
+.md-typeset {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+/* Fonte levemente maior nos blocos de código */
+.md-typeset code {
+  font-size: 0.9em;
+}
+
+/* Destaque suave nas equações inline */
+.arithmatex {
+  overflow-x: auto;
+}

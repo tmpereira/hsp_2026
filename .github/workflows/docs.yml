@@ -1,0 +1,51 @@
+name: Deploy Documentation to GitHub Pages
+
+# Dispara o deploy a cada push na branch main
+on:
+  push:
+    branches:
+      - main
+  # Permite execução manual via GitHub Actions UI
+  workflow_dispatch:
+
+# Permissões necessárias para escrever no branch gh-pages
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Build & Deploy MkDocs
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Faz o checkout do código-fonte
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # necessário para que o mike/git-revision funcione
+
+      # 2. Configura Python
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Cache das dependências pip para acelerar builds futuros
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4. Instala a biblioteca e as dependências de documentação
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e .
+          pip install mkdocs-material "mkdocstrings[python]"
+
+      # 5. Compila e publica a documentação no branch gh-pages
+      - name: Deploy documentation
+        run: mkdocs gh-deploy --force

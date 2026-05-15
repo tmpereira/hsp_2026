@@ -1,0 +1,122 @@
+site_name: HSP — Hyperspectral Processing Library
+site_description: >
+  Biblioteca Python para processamento e análise de imagens de
+  Micro-FTIR (microscopia de infravermelho por transformada de Fourier)
+  desenvolvida pelo Prof. Thiago Martini Pereira — UNIFESP.
+site_author: Thiago Martini Pereira
+site_url: https://tmpereira.github.io/hsp_2026
+
+repo_name: hsp_2026
+repo_url: https://github.com/tmpereira/hsp_2026
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: pt
+  palette:
+    # Modo claro
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Alternar para modo escuro
+    # Modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: light-blue
+      toggle:
+        icon: material/brightness-4
+        name: Alternar para modo claro
+  features:
+    - navigation.tabs          # abas de navegação no topo
+    - navigation.sections      # agrupa itens no menu lateral
+    - navigation.top           # botão "voltar ao topo"
+    - navigation.indexes       # página índice por seção
+    - search.highlight         # destaca termos buscados na página
+    - search.suggest           # sugestões automáticas na busca
+    - content.code.copy        # botão de copiar em blocos de código
+    - content.tooltips         # tooltips ao passar o mouse em links
+  icon:
+    repo: fontawesome/brands/github
+
+# Extensões Markdown
+markdown_extensions:
+  - admonition                 # caixas de aviso (note, warning, tip…)
+  - pymdownx.details           # caixas expansíveis
+  - pymdownx.superfences       # blocos de código aninhados
+  - pymdownx.highlight:        # syntax highlighting
+      anchor_linenums: true
+  - pymdownx.inlinehilite      # highlight inline: `código`{.python}
+  - pymdownx.tabbed:           # abas dentro de páginas
+      alternate_style: true
+  - pymdownx.arithmatex:       # suporte a LaTeX / MathJax
+      generic: true
+  - attr_list                  # atributos HTML em elementos Markdown
+  - md_in_html                 # Markdown dentro de tags HTML
+  - tables                     # tabelas GFM
+  - toc:                       # índice automático
+      permalink: true
+
+# MathJax — renderização de equações LaTeX
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+
+# Plugins
+plugins:
+  - search:
+      lang: pt
+  - mkdocs-jupyter: 
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["."]                    # hsp_2026/ está na mesma pasta que mkdocs.yml
+          options:
+            docstring_style: google       # padrão Google Style para docstrings
+            show_source: true             # exibe o código-fonte na referência
+            show_root_heading: true
+            heading_level: 2
+
+
+# Estrutura de navegação
+nav:
+  - Home: index.md
+  - Teoria:
+     - EMSC: teoria/emsc_teoria.md
+   # - Pré-Processamento: teoria/Pre_processig_theory.md
+     - NAPC: teoria/napc.md
+     - Mie Scattering: teoria/Mie_scattering.md
+     - K-means: teoria/K-means.md
+     - Savitz-Golay: teoria/Savitz_golay.md
+     - HCA: teoria/hca.md 
+
+  - Instalação: instalacao.md
+  - Receitas:
+      - Receita Básica (sem MSC): receitas/receita_basica.ipynb
+ # - Guia de Uso:
+ #   - Leitura de Dados: modulos_detalhes/leitura.md
+ #   - Pré-Processamento: processamento.md
+  - Módulos em Detalhe:
+      - file.py — Leitura de Arquivos: modulos_detalhes/file.md
+      - prep.py — Pré-Processamento: modulos_detalhes/prep.md
+      - qt.py — Controle de Qualidade: modulos_detalhes/qt.md
+      - rg.py — Histogramas de Diagnóstico: modulos_detalhes/rg.md
+      - sh.py — Visualização de Imagens: modulos_detalhes/sh.md
+      - emsc.py — Correção de Espalhamento (EMSC): modulos_detalhes/emsc.md
+      - km.py — Clusterização K-Means: modulos_detalhes/km.md
+  - Referência da API: referencia_api.md
+  - Publicações: publicacao.md
+  - videos-aula: videos_aula.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tmpereira/hsp_2026
+  version:
+    provider: mike
