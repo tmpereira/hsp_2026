@@ -1,59 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/emsc/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/Pre_processig_theory/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/file/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/instalacao/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/instalacao/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/processamento/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/km/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/publicacao/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/leitura/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/referencia_api/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/prep/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/videos_aula/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/processamento/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/emsc/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/qt/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/file/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/referencia_api/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/km/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/rg/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/leitura/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/sh/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/prep/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/teoria/Pre_processig_theory/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/qt/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
     <url>
-         <loc>https://thiago-martini.github.io/hsp_2026/teoria/emsc_teoria/</loc>
-         <lastmod>2026-05-08</lastmod>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/rg/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/modulos_detalhes/sh/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/receitas/receita_basica/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/K-means/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/Mie_scattering/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/Savitz_golay/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/emsc_teoria/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/hca/</loc>
+         <lastmod>2026-05-15</lastmod>
+    </url>
+    <url>
+         <loc>https://tmpereira.github.io/hsp_2026/teoria/napc/</loc>
+         <lastmod>2026-05-15</lastmod>
     </url>
 </urlset>
