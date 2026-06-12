@@ -89,6 +89,7 @@ nav:
   - Teoria: 
       - Extended Multiplicative correction: teoria/emsc_teoria.md
       - Pré-Processamento: teoria/Pre_processig_theory.md
+      - reduçao de ruido: teoria/noise_reduction.md
   - Instalação: instalacao.md
   - Guia de Uso:
       - Leitura de Dados: leitura.md
