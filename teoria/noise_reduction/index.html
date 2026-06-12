@@ -13,13 +13,13 @@
         <meta name="author" content="Thiago Martini Pereira">
       
       
-        <link rel="canonical" href="https://tmpereira.github.io/hsp_2026/teoria/napc/">
+        <link rel="canonical" href="https://tmpereira.github.io/hsp_2026/teoria/noise_reduction/">
       
       
-        <link rel="prev" href="../emsc_teoria/">
+        <link rel="prev" href="../Pre_processig_theory/">
       
       
-        <link rel="next" href="../Mie_scattering/">
+        <link rel="next" href="../../instalacao/">
       
       
         
@@ -30,7 +30,7 @@
     
     
       
-        <title>NAPC - HSP — Hyperspectral Processing Library</title>
+        <title>reduçao de ruido - HSP — Hyperspectral Processing Library</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#analise-de-componentes-principais-ajustada-pelo-ruido-na-pca" class="md-skip">
+        <a href="#1-reducao-de-ruido" class="md-skip">
           Ir para o conteúdo
         </a>
       
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NAPC
+              reduçao de ruido
             
           </span>
         </div>
@@ -300,13 +300,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../receitas/receita_basica/" class="md-tabs__link">
+        <a href="../../leitura/" class="md-tabs__link">
           
   
   
     
   
-  Receitas
+  Guia de Uso
 
         </a>
       </li>
@@ -322,7 +322,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../modulos_detalhes/file/" class="md-tabs__link">
+        <a href="../../file/" class="md-tabs__link">
           
   
   
@@ -355,44 +355,6 @@
   
 
       
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../publicacao/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Publicações
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../videos_aula/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  videos-aula
-
-      </a>
-    </li>
-  
-
-      
     </ul>
   </div>
 </nav>
@@ -413,7 +375,9 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="HSP — Hyperspectral Processing Library" class="md-nav__button md-logo" aria-label="HSP — Hyperspectral Processing Library" data-md-component="logo">
       
@@ -475,12 +439,6 @@
   
     
     
-      
-        
-      
-        
-      
-        
       
         
       
@@ -550,7 +508,35 @@
   <span class="md-ellipsis">
     
   
-    EMSC
+    Extended Multiplicative correction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Pre_processig_theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
   
 
     
@@ -577,8 +563,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -587,7 +571,7 @@
   <span class="md-ellipsis">
     
   
-    NAPC
+    reduçao de ruido
   
 
     
@@ -605,7 +589,7 @@
   <span class="md-ellipsis">
     
   
-    NAPC
+    reduçao de ruido
   
 
     
@@ -621,8 +605,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -631,55 +613,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir" class="md-nav__link">
+  <a href="#1-reducao-de-ruido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. O problema: ruído não é uniforme em espectros FT-IR
+        1. Redução de Ruído
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-revisao-rapida-pca-convencional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Revisão rápida: PCA convencional
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-a-ideia-central-da-na-pca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. A ideia central da NA-PCA
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-derivacao-matematica-passo-a-passo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Derivação matemática passo a passo
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Derivação matemática passo a passo">
+    <nav class="md-nav" aria-label="1. Redução de Ruído">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#passo-1-separacao-dos-pixels" class="md-nav__link">
+  <a href="#11-suavizacao-de-savitzky-golay" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 1: Separação dos pixels
+        1.1 Suavização de Savitzky-Golay
       
     </span>
   </a>
@@ -687,10 +636,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-2-construcao-das-matrizes-de-covariancia" class="md-nav__link">
+  <a href="#12-analise-de-componentes-principais-ajustada-pelo-ruido-na-pca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 2: Construção das matrizes de covariância
+        1.2 Análise de Componentes Principais Ajustada pelo Ruído (NA-PCA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Análise de Componentes Principais Ajustada pelo Ruído (NA-PCA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1 O problema: ruído não é uniforme em espectros FT-IR
       
     </span>
   </a>
@@ -698,10 +659,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-3-diagonalizacao-da-matriz-de-ruido" class="md-nav__link">
+  <a href="#122-revisao-rapida-pca-convencional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 3: Diagonalização da matriz de ruído
+        1.2.2 Revisão rápida: PCA convencional
       
     </span>
   </a>
@@ -709,10 +670,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening" class="md-nav__link">
+  <a href="#123-a-ideia-central-da-na-pca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 4: Transformação de branqueamento do ruído (noise whitening)
+        1.2.3 A ideia central da NA-PCA
       
     </span>
   </a>
@@ -720,10 +681,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-5-pca-ajustada-pelo-ruido" class="md-nav__link">
+  <a href="#124-derivacao-matematica-passo-a-passo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 5: PCA ajustada pelo ruído
+        1.2.4 Derivação matemática passo a passo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.4 Derivação matemática passo a passo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1241-passo-1-separacao-dos-pixels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.1 Passo 1: Separação dos pixels
       
     </span>
   </a>
@@ -731,10 +704,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-6-combinacao-das-transformacoes" class="md-nav__link">
+  <a href="#1242-passo-2-construcao-das-matrizes-de-covariancia" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 6: Combinação das transformações
+        1.2.4.2 Passo 2: Construção das matrizes de covariância
       
     </span>
   </a>
@@ -742,10 +715,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-7-calculo-dos-componentes-principais-ajustados" class="md-nav__link">
+  <a href="#1243-passo-3-diagonalizacao-da-matriz-de-ruido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 7: Cálculo dos componentes principais ajustados
+        1.2.4.3 Passo 3: Diagonalização da matriz de ruído
       
     </span>
   </a>
@@ -753,10 +726,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#passo-8-reconstrucao-com-reducao-de-ruido" class="md-nav__link">
+  <a href="#1244-passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Passo 8: Reconstrução com redução de ruído
+        1.2.4.4 Passo 4: Transformação de branqueamento do ruído (noise whitening)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1245-passo-5-pca-ajustada-pelo-ruido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.5 Passo 5: PCA ajustada pelo ruído
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1246-passo-6-combinacao-das-transformacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.6 Passo 6: Combinação das transformações
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1247-passo-7-calculo-dos-componentes-principais-ajustados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.7 Passo 7: Cálculo dos componentes principais ajustados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1248-passo-8-reconstrucao-com-reducao-de-ruido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.8 Passo 8: Reconstrução com redução de ruído
       
     </span>
   </a>
@@ -767,68 +784,68 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#5-resumo-esquematico-do-algoritmo" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#125-resumo-esquematico-do-algoritmo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Resumo esquemático do algoritmo
+        1.2.5 Resumo esquemático do algoritmo
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#6-na-pca-vs-suavizacao-convencional" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#126-na-pca-vs-suavizacao-convencional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. NA-PCA vs. suavização convencional
+        1.2.6 NA-PCA vs. suavização convencional
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#7-um-detalhe-importante-os-pixels-vazios-sao-valiosos" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#127-um-detalhe-importante-os-pixels-vazios-sao-valiosos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Um detalhe importante: os "pixels vazios" são valiosos
+        1.2.7 Um detalhe importante: os "pixels vazios" são valiosos
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#8-escolha-do-numero-de-componentes-p" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#128-escolha-do-numero-de-componentes-p" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Escolha do número de componentes \(p\)
+        1.2.8 Escolha do número de componentes \(p\)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#9-aplicacao-em-celulas-vivas-um-exemplo-concreto" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#129-aplicacao-em-celulas-vivas-um-exemplo-concreto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Aplicação em células vivas: um exemplo concreto
+        1.2.9 Aplicação em células vivas: um exemplo concreto
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="9. Aplicação em células vivas: um exemplo concreto">
+    <nav class="md-nav" aria-label="1.2.9 Aplicação em células vivas: um exemplo concreto">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#o-desafio" class="md-nav__link">
+  <a href="#1291-o-desafio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        O desafio
+        1.2.9.1 O desafio
       
     </span>
   </a>
@@ -836,10 +853,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-solucao-com-na-pca" class="md-nav__link">
+  <a href="#1292-a-solucao-com-na-pca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A solução com NA-PCA
+        1.2.9.2 A solução com NA-PCA
       
     </span>
   </a>
@@ -847,10 +864,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#o-resultado" class="md-nav__link">
+  <a href="#1293-o-resultado" class="md-nav__link">
     <span class="md-ellipsis">
       
-        O resultado
+        1.2.9.3 O resultado
       
     </span>
   </a>
@@ -861,15 +878,14 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#10-referencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Referências
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -877,118 +893,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Mie_scattering/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Mie Scattering
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../K-means/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    K-means
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Savitz_golay/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Savitz-Golay
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../hca/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HCA
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1039,6 +943,8 @@
       
         
       
+        
+      
     
     
     
@@ -1062,7 +968,7 @@
   <span class="md-ellipsis">
     
   
-    Receitas
+    Guia de Uso
   
 
     
@@ -1078,7 +984,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Receitas
+    Guia de Uso
   
 
           </label>
@@ -1091,14 +997,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../receitas/receita_basica/" class="md-nav__link">
+      <a href="../../leitura/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    🔬 Receita Básica — Processamento de Imagens Micro-FTIR com HSP 2026
+    Leitura de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../processamento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pré-Processamento
   
 
     
@@ -1194,7 +1128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/file/" class="md-nav__link">
+      <a href="../../file/" class="md-nav__link">
         
   
   
@@ -1222,7 +1156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/prep/" class="md-nav__link">
+      <a href="../../prep/" class="md-nav__link">
         
   
   
@@ -1250,7 +1184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/qt/" class="md-nav__link">
+      <a href="../../qt/" class="md-nav__link">
         
   
   
@@ -1278,7 +1212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/rg/" class="md-nav__link">
+      <a href="../../rg/" class="md-nav__link">
         
   
   
@@ -1306,7 +1240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/sh/" class="md-nav__link">
+      <a href="../../sh/" class="md-nav__link">
         
   
   
@@ -1334,7 +1268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/emsc/" class="md-nav__link">
+      <a href="../../emsc/" class="md-nav__link">
         
   
   
@@ -1362,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modulos_detalhes/km/" class="md-nav__link">
+      <a href="../../km/" class="md-nav__link">
         
   
   
@@ -1417,335 +1351,12 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../publicacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Publicações
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../videos_aula/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    videos-aula
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
                 </div>
               </div>
             
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Índice">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Índice
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. O problema: ruído não é uniforme em espectros FT-IR
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-revisao-rapida-pca-convencional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Revisão rápida: PCA convencional
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-a-ideia-central-da-na-pca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. A ideia central da NA-PCA
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-derivacao-matematica-passo-a-passo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Derivação matemática passo a passo
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Derivação matemática passo a passo">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#passo-1-separacao-dos-pixels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 1: Separação dos pixels
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-2-construcao-das-matrizes-de-covariancia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 2: Construção das matrizes de covariância
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-3-diagonalizacao-da-matriz-de-ruido" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 3: Diagonalização da matriz de ruído
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 4: Transformação de branqueamento do ruído (noise whitening)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-5-pca-ajustada-pelo-ruido" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 5: PCA ajustada pelo ruído
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-6-combinacao-das-transformacoes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 6: Combinação das transformações
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-7-calculo-dos-componentes-principais-ajustados" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 7: Cálculo dos componentes principais ajustados
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passo-8-reconstrucao-com-reducao-de-ruido" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Passo 8: Reconstrução com redução de ruído
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-resumo-esquematico-do-algoritmo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Resumo esquemático do algoritmo
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-na-pca-vs-suavizacao-convencional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. NA-PCA vs. suavização convencional
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-um-detalhe-importante-os-pixels-vazios-sao-valiosos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Um detalhe importante: os "pixels vazios" são valiosos
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-escolha-do-numero-de-componentes-p" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Escolha do número de componentes \(p\)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-aplicacao-em-celulas-vivas-um-exemplo-concreto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Aplicação em células vivas: um exemplo concreto
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Aplicação em células vivas: um exemplo concreto">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#o-desafio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        O desafio
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a-solucao-com-na-pca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A solução com NA-PCA
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#o-resultado" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        O resultado
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-referencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Referências
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
             
           
           
@@ -1760,12 +1371,59 @@
   
 
 
-<h1 id="analise-de-componentes-principais-ajustada-pelo-ruido-na-pca">Análise de Componentes Principais Ajustada pelo Ruído (NA-PCA)<a class="headerlink" href="#analise-de-componentes-principais-ajustada-pelo-ruido-na-pca" title="Permanent link">&para;</a></h1>
+  <h1>reduçao de ruido</h1>
+
 <blockquote>
-<p><strong>Para quem é este texto?</strong> Este material é voltado para estudantes de graduação em Engenharia e Ciências Exatas com conhecimento básico de álgebra linear. O texto constrói o conceito de NA-PCA de forma progressiva, partindo do problema que ela resolve, passando pela PCA convencional e chegando à formulação completa do método.</p>
+<p>⚠️ <strong>Documentação em construção.</strong> Algumas informações podem estar imprecisas ou incompletas.</p>
+<p><strong>Para quem é este texto?</strong> Este material foi escrito para estudantes de graduação em Engenharia e Ciências Exatas que estão tendo seu primeiro contato com análise de dados espectrais. O objetivo é construir a intuição passo a passo, do dado bruto até a imagem química final.</p>
 </blockquote>
 <hr />
-<h2 id="1-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir">1. O problema: ruído não é uniforme em espectros FT-IR<a class="headerlink" href="#1-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir" title="Permanent link">&para;</a></h2>
+<h2 id="1-reducao-de-ruido">1. Redução de Ruído<a class="headerlink" href="#1-reducao-de-ruido" title="Permanent link">&para;</a></h2>
+<p>O ruído é inevitável em qualquer medição instrumental. Em microespectroscopia FT-IR, o ruído é especialmente problemático na região de <strong>alto número de onda</strong> (acima de 3000 cm⁻¹), onde detectores de estado sólido têm sensibilidade reduzida.</p>
+<h3 id="11-suavizacao-de-savitzky-golay">1.1 Suavização de Savitzky-Golay<a class="headerlink" href="#11-suavizacao-de-savitzky-golay" title="Permanent link">&para;</a></h3>
+<p>O método de Savitzky-Golay é o algoritmo de suavização mais utilizado em espectroscopia. Ele aplica uma <strong>janela deslizante</strong> ao longo do espectro: em cada ponto, ajusta um polinômio de baixo grau aos pontos vizinhos e substitui o valor central pelo valor estimado pelo polinômio.</p>
+<p>Matematicamente:</p>
+<div class="arithmatex">\[
+Y^* *j = \frac{\sum* {i=-m}^{m} C_i \cdot Y_{j+i}}{N}
+\]</div>
+<p>onde:</p>
+<table>
+<thead>
+<tr>
+<th>Símbolo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(Y^*_j\)</span></td>
+<td>Valor suavizado no ponto<span class="arithmatex">\(j\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(C_i\)</span></td>
+<td>Coeficientes da janela (tabelados)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(N\)</span></td>
+<td>Constante de normalização</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m\)</span></td>
+<td>Metade da largura da janela</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Cuidado com janelas muito largas</p>
+</div>
+<p>Uma janela de suavização muito ampla remove ruído, mas também começa a distorcer os picos químicos, alargando e achatando bandas reais. Sempre verifique visualmente o espectro suavizado em relação ao original.</p>
+<div class="admonition info">
+<p class="admonition-title">Pré-requisito importante</p>
+</div>
+<p>O espectro deve estar representado com <strong>espaçamento linear em número de onda</strong> antes de aplicar Savitzky-Golay. Caso contrário, a janela produzirá distorções.</p>
+<h3 id="12-analise-de-componentes-principais-ajustada-pelo-ruido-na-pca">1.2 Análise de Componentes Principais Ajustada pelo Ruído (NA-PCA)<a class="headerlink" href="#12-analise-de-componentes-principais-ajustada-pelo-ruido-na-pca" title="Permanent link">&para;</a></h3>
+<hr />
+<h4 id="121-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir">1.2.1 O problema: ruído não é uniforme em espectros FT-IR<a class="headerlink" href="#121-o-problema-ruido-nao-e-uniforme-em-espectros-ft-ir" title="Permanent link">&para;</a></h4>
 <p>Antes de entender a NA-PCA, precisamos entender <strong>por que a PCA convencional não é suficiente</strong> para dados de microespectroscopia.</p>
 <p>Em experimentos de FT-IR com detectores de estado sólido (como o HgCdTe), o ruído instrumental <strong>não é constante ao longo do espectro</strong>. Ele varia significativamente com o número de onda:</p>
 <ul>
@@ -1779,7 +1437,7 @@
 </div>
 <p>A <strong>NA-PCA (Noise-Adjusted Principal Component Analysis)</strong> resolve exatamente esse problema: ela <strong>mede o ruído do instrumento diretamente dos dados</strong> e usa essa informação para reorganizar os componentes principais em ordem de <strong>relação sinal-ruído decrescente</strong>, não apenas de variância decrescente.</p>
 <hr />
-<h2 id="2-revisao-rapida-pca-convencional">2. Revisão rápida: PCA convencional<a class="headerlink" href="#2-revisao-rapida-pca-convencional" title="Permanent link">&para;</a></h2>
+<h4 id="122-revisao-rapida-pca-convencional">1.2.2 Revisão rápida: PCA convencional<a class="headerlink" href="#122-revisao-rapida-pca-convencional" title="Permanent link">&para;</a></h4>
 <p>Para entender a NA-PCA, é útil revisar brevemente como a PCA convencional funciona.</p>
 <p>Dado um conjunto de <span class="arithmatex">\(n\)</span> espectros organizados em uma matriz <span class="arithmatex">\(\mathbf{S}_D\)</span> (onde cada coluna é um espectro de <span class="arithmatex">\(m\)</span> pontos), a PCA calcula a <strong>matriz de covariância do sinal</strong>:</p>
 <div class="arithmatex">\[
@@ -1791,7 +1449,7 @@
 \]</div>
 <p>Os PCs são ordenados do maior para o menor autovalor — ou seja, do que explica mais variância para o que explica menos. O problema é que <strong>variância ≠ sinal químico</strong>: um PC com alto autovalor pode estar descrevendo ruído instrumental intenso, não química real.</p>
 <hr />
-<h2 id="3-a-ideia-central-da-na-pca">3. A ideia central da NA-PCA<a class="headerlink" href="#3-a-ideia-central-da-na-pca" title="Permanent link">&para;</a></h2>
+<h4 id="123-a-ideia-central-da-na-pca">1.2.3 A ideia central da NA-PCA<a class="headerlink" href="#123-a-ideia-central-da-na-pca" title="Permanent link">&para;</a></h4>
 <p>A NA-PCA foi originalmente desenvolvida pela comunidade de sensoriamento remoto (<em>remote sensing</em>) e adaptada para dados de microespectroscopia FT-IR por Bhargava e colaboradores.</p>
 <p>A ideia central é elegante: <strong>usar os próprios dados para medir o ruído do instrumento</strong>.</p>
 <p>Em um hipercubo espectral de microespectroscopia, nem todos os pixels contêm amostra. Alguns pixels correspondem a <strong>regiões vazias</strong> — fundo aquoso, espaço sem célula ou tecido, substrato puro. Esses pixels não carregam informação química da amostra, mas carregam <strong>todo o ruído instrumental</strong> presente no experimento.</p>
@@ -1806,14 +1464,14 @@
 <p>Pense assim: a PCA convencional encontra as direções de maior variância total no espaço espectral. A NA-PCA encontra as direções de maior <strong>relação sinal/ruído</strong> — ou seja, as direções onde o sinal é grande <em>em relação ao</em> ruído. Essas são as direções mais informativas bioquimicamente.</p>
 </div>
 <hr />
-<h2 id="4-derivacao-matematica-passo-a-passo">4. Derivação matemática passo a passo<a class="headerlink" href="#4-derivacao-matematica-passo-a-passo" title="Permanent link">&para;</a></h2>
-<h3 id="passo-1-separacao-dos-pixels">Passo 1: Separação dos pixels<a class="headerlink" href="#passo-1-separacao-dos-pixels" title="Permanent link">&para;</a></h3>
+<h4 id="124-derivacao-matematica-passo-a-passo">1.2.4 Derivação matemática passo a passo<a class="headerlink" href="#124-derivacao-matematica-passo-a-passo" title="Permanent link">&para;</a></h4>
+<h5 id="1241-passo-1-separacao-dos-pixels">1.2.4.1 Passo 1: Separação dos pixels<a class="headerlink" href="#1241-passo-1-separacao-dos-pixels" title="Permanent link">&para;</a></h5>
 <p>O primeiro passo é identificar quais pixels pertencem à amostra e quais pertencem ao fundo (ruído). Em dados de células vivas ou tecido, isso pode ser feito usando a intensidade integrada da <strong>banda Amida I</strong> (região 1626–1676 cm⁻¹):</p>
 <ul>
 <li>Pixels com alta intensidade Amida I → contêm célula → matriz <span class="arithmatex">\(\mathbf{S}_D\)</span></li>
 <li>Pixels com baixa intensidade Amida I → fundo/ruído → matriz <span class="arithmatex">\(\mathbf{S}_N\)</span></li>
 </ul>
-<h3 id="passo-2-construcao-das-matrizes-de-covariancia">Passo 2: Construção das matrizes de covariância<a class="headerlink" href="#passo-2-construcao-das-matrizes-de-covariancia" title="Permanent link">&para;</a></h3>
+<h5 id="1242-passo-2-construcao-das-matrizes-de-covariancia">1.2.4.2 Passo 2: Construção das matrizes de covariância<a class="headerlink" href="#1242-passo-2-construcao-das-matrizes-de-covariancia" title="Permanent link">&para;</a></h5>
 <p>Com os dois grupos separados, calculamos duas matrizes de covariância, ambas baseadas em vetores espectrais centralizados na média:</p>
 <div class="arithmatex">\[
 \mathbf{C}_N = \mathbf{S}_N \mathbf{S}_N^T \quad \text{(covariância do ruído)}
@@ -1822,13 +1480,13 @@
 \mathbf{C}_D = \mathbf{S}_D \mathbf{S}_D^T \quad \text{(covariância do sinal)}
 \]</div>
 <p>Ambas são matrizes <span class="arithmatex">\(m \times m\)</span>, onde <span class="arithmatex">\(m\)</span> é o número de pontos espectrais.</p>
-<h3 id="passo-3-diagonalizacao-da-matriz-de-ruido">Passo 3: Diagonalização da matriz de ruído<a class="headerlink" href="#passo-3-diagonalizacao-da-matriz-de-ruido" title="Permanent link">&para;</a></h3>
+<h5 id="1243-passo-3-diagonalizacao-da-matriz-de-ruido">1.2.4.3 Passo 3: Diagonalização da matriz de ruído<a class="headerlink" href="#1243-passo-3-diagonalizacao-da-matriz-de-ruido" title="Permanent link">&para;</a></h5>
 <p>A matriz de covariância do ruído é diagonalizada:</p>
 <div class="arithmatex">\[
 \mathbf{E}^T \mathbf{C}_N \mathbf{E} = \mathbf{\Delta}_N
 \]</div>
 <p>onde <span class="arithmatex">\(\mathbf{E}\)</span> é a matriz de autovetores do ruído e <span class="arithmatex">\(\mathbf{\Delta}_N\)</span> é a matriz diagonal de autovalores do ruído.</p>
-<h3 id="passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening">Passo 4: Transformação de branqueamento do ruído (<em>noise whitening</em>)<a class="headerlink" href="#passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening" title="Permanent link">&para;</a></h3>
+<h5 id="1244-passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening">1.2.4.4 Passo 4: Transformação de branqueamento do ruído (<em>noise whitening</em>)<a class="headerlink" href="#1244-passo-4-transformacao-de-branqueamento-do-ruido-noise-whitening" title="Permanent link">&para;</a></h5>
 <p>A ideia agora é construir uma transformação <span class="arithmatex">\(\mathbf{F}\)</span> que torne o ruído <strong>uniforme em todas as direções</strong> (ruído branco). Essa transformação é:</p>
 <div class="arithmatex">\[
 \mathbf{F} = \mathbf{E} \cdot \mathbf{\Delta}_N^{-1/2}
@@ -1841,7 +1499,7 @@
 <p class="admonition-title">O que significa 'branquear o ruído'?</p>
 <p>Após esta transformação, o ruído é matematicamente equivalente em todas as direções do espaço espectral. Isso significa que, quando aplicarmos a PCA a seguir, ela não será mais "atraída" pelas direções de alto ruído — pois todas as direções têm a mesma quantidade de ruído. O que sobrar de variância após o branqueamento será <strong>sinal</strong>.</p>
 </div>
-<h3 id="passo-5-pca-ajustada-pelo-ruido">Passo 5: PCA ajustada pelo ruído<a class="headerlink" href="#passo-5-pca-ajustada-pelo-ruido" title="Permanent link">&para;</a></h3>
+<h5 id="1245-passo-5-pca-ajustada-pelo-ruido">1.2.4.5 Passo 5: PCA ajustada pelo ruído<a class="headerlink" href="#1245-passo-5-pca-ajustada-pelo-ruido" title="Permanent link">&para;</a></h5>
 <p>Agora calculamos a <strong>matriz de covariância do sinal ajustada pelo ruído</strong>:</p>
 <div class="arithmatex">\[
 \mathbf{C}_{\text{adj}} = \mathbf{F}^T \mathbf{C}_D \mathbf{F}
@@ -1851,25 +1509,25 @@
 \mathbf{G}^T \mathbf{C}_{\text{adj}} \mathbf{G} = \mathbf{\Lambda}_{\text{adj}}
 \]</div>
 <p>Os autovalores <span class="arithmatex">\(\mathbf{\Lambda}_{\text{adj}}\)</span> agora expressam <strong>relação sinal-ruído</strong>, não apenas variância bruta.</p>
-<h3 id="passo-6-combinacao-das-transformacoes">Passo 6: Combinação das transformações<a class="headerlink" href="#passo-6-combinacao-das-transformacoes" title="Permanent link">&para;</a></h3>
+<h5 id="1246-passo-6-combinacao-das-transformacoes">1.2.4.6 Passo 6: Combinação das transformações<a class="headerlink" href="#1246-passo-6-combinacao-das-transformacoes" title="Permanent link">&para;</a></h5>
 <p>As matrizes <span class="arithmatex">\(\mathbf{F}\)</span> e <span class="arithmatex">\(\mathbf{G}\)</span> são combinadas em uma única matriz de transformação:</p>
 <div class="arithmatex">\[
 \mathbf{H} = \mathbf{F} \cdot \mathbf{G}
 \]</div>
-<h3 id="passo-7-calculo-dos-componentes-principais-ajustados">Passo 7: Cálculo dos componentes principais ajustados<a class="headerlink" href="#passo-7-calculo-dos-componentes-principais-ajustados" title="Permanent link">&para;</a></h3>
+<h5 id="1247-passo-7-calculo-dos-componentes-principais-ajustados">1.2.4.7 Passo 7: Cálculo dos componentes principais ajustados<a class="headerlink" href="#1247-passo-7-calculo-dos-componentes-principais-ajustados" title="Permanent link">&para;</a></h5>
 <p>Os componentes principais ajustados pelo ruído são calculados como:</p>
 <div class="arithmatex">\[
 \mathbf{Z}'_{\text{adj}} = \mathbf{H}^T \mathbf{S}_D
 \]</div>
 <p>Esses componentes estão ordenados em ordem <strong>decrescente de relação sinal-ruído</strong>. Os primeiros componentes carregam o máximo de informação química com o mínimo de ruído; os últimos componentes são essencialmente ruído puro.</p>
-<h3 id="passo-8-reconstrucao-com-reducao-de-ruido">Passo 8: Reconstrução com redução de ruído<a class="headerlink" href="#passo-8-reconstrucao-com-reducao-de-ruido" title="Permanent link">&para;</a></h3>
+<h5 id="1248-passo-8-reconstrucao-com-reducao-de-ruido">1.2.4.8 Passo 8: Reconstrução com redução de ruído<a class="headerlink" href="#1248-passo-8-reconstrucao-com-reducao-de-ruido" title="Permanent link">&para;</a></h5>
 <p>Finalmente, os espectros são reconstruídos usando apenas os <strong>primeiros <span class="arithmatex">\(p\)</span> componentes ajustados</strong> (tipicamente <span class="arithmatex">\(p = 30\)</span> a <span class="arithmatex">\(50\)</span>):</p>
 <div class="arithmatex">\[
 \hat{\mathbf{S}}_D = \sum_{k=1}^{p} z'_k \cdot h_k^T
 \]</div>
 <p>Os componentes de alta ordem (ruído) são simplesmente descartados. Os espectros reconstruídos têm <strong>relação sinal-ruído significativamente melhorada</strong>.</p>
 <hr />
-<h2 id="5-resumo-esquematico-do-algoritmo">5. Resumo esquemático do algoritmo<a class="headerlink" href="#5-resumo-esquematico-do-algoritmo" title="Permanent link">&para;</a></h2>
+<h4 id="125-resumo-esquematico-do-algoritmo">1.2.5 Resumo esquemático do algoritmo<a class="headerlink" href="#125-resumo-esquematico-do-algoritmo" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ENTRADA: Hipercubo espectral (x, y, n)
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         │
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         ▼
@@ -1923,7 +1581,7 @@
 <a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>  alta relação sinal-ruído
 </code></pre></div>
 <hr />
-<h2 id="6-na-pca-vs-suavizacao-convencional">6. NA-PCA vs. suavização convencional<a class="headerlink" href="#6-na-pca-vs-suavizacao-convencional" title="Permanent link">&para;</a></h2>
+<h4 id="126-na-pca-vs-suavizacao-convencional">1.2.6 NA-PCA vs. suavização convencional<a class="headerlink" href="#126-na-pca-vs-suavizacao-convencional" title="Permanent link">&para;</a></h4>
 <p>Por que usar NA-PCA em vez de simplesmente aplicar um filtro de suavização (como Savitzky-Golay)?</p>
 <p>A tabela abaixo compara os dois métodos:</p>
 <table>
@@ -1974,7 +1632,7 @@
 <p>A S/N média dos espectros celulares saltou de <strong>475 (imagem bruta)</strong> para <strong>1254 (após NA-PCA)</strong>, superando inclusive os <strong>647</strong> obtidos com o modo de ponto com 16× mais interferogramas co-adicionados.</p>
 </div>
 <hr />
-<h2 id="7-um-detalhe-importante-os-pixels-vazios-sao-valiosos">7. Um detalhe importante: os "pixels vazios" são valiosos<a class="headerlink" href="#7-um-detalhe-importante-os-pixels-vazios-sao-valiosos" title="Permanent link">&para;</a></h2>
+<h4 id="127-um-detalhe-importante-os-pixels-vazios-sao-valiosos">1.2.7 Um detalhe importante: os "pixels vazios" são valiosos<a class="headerlink" href="#127-um-detalhe-importante-os-pixels-vazios-sao-valiosos" title="Permanent link">&para;</a></h4>
 <p>Em microespectroscopia de células vivas ou tecido, é comum que uma fração significativa da imagem corresponda a <strong>regiões sem amostra</strong> — fundo aquoso, espaço entre células, substrato de CaF₂.</p>
 <p>Intuitivamente, poderíamos pensar que esses pixels são um "desperdício" de tempo de aquisição e espaço de armazenamento. A NA-PCA inverte essa perspectiva:</p>
 <blockquote>
@@ -1986,7 +1644,7 @@
 <p>Ao planejar experimentos de microespectroscopia FT-IR para uso com NA-PCA, é vantajoso garantir que a imagem coletada inclua uma <strong>área de fundo limpo e representativo</strong> — sem contaminação por amostra — suficientemente grande para estimar o perfil de ruído com precisão estatística.</p>
 </div>
 <hr />
-<h2 id="8-escolha-do-numero-de-componentes-p">8. Escolha do número de componentes <span class="arithmatex">\(p\)</span><a class="headerlink" href="#8-escolha-do-numero-de-componentes-p" title="Permanent link">&para;</a></h2>
+<h4 id="128-escolha-do-numero-de-componentes-p">1.2.8 Escolha do número de componentes <span class="arithmatex">\(p\)</span><a class="headerlink" href="#128-escolha-do-numero-de-componentes-p" title="Permanent link">&para;</a></h4>
 <p>A qualidade da reconstrução depende criticamente de quantos componentes ajustados são retidos. Algumas diretrizes práticas:</p>
 <ul>
 <li><strong>Poucos componentes</strong> (<span class="arithmatex">\(p\)</span> muito pequeno): reconstrução suavizada demais, perde informação química real, especialmente de bandas menores.</li>
@@ -1995,16 +1653,16 @@
 </ul>
 <p>Uma forma objetiva de escolher <span class="arithmatex">\(p\)</span> é inspecionar os <strong>autovalores ajustados</strong> <span class="arithmatex">\(\mathbf{\Lambda}_{\text{adj}}\)</span>: valores maiores que 1 indicam que aquele componente tem mais sinal do que ruído; valores próximos a 1 indicam que o componente é dominado por ruído.</p>
 <hr />
-<h2 id="9-aplicacao-em-celulas-vivas-um-exemplo-concreto">9. Aplicação em células vivas: um exemplo concreto<a class="headerlink" href="#9-aplicacao-em-celulas-vivas-um-exemplo-concreto" title="Permanent link">&para;</a></h2>
+<h4 id="129-aplicacao-em-celulas-vivas-um-exemplo-concreto">1.2.9 Aplicação em células vivas: um exemplo concreto<a class="headerlink" href="#129-aplicacao-em-celulas-vivas-um-exemplo-concreto" title="Permanent link">&para;</a></h4>
 <p>O trabalho de Marcsisin et al. (2012) ilustra perfeitamente o impacto da NA-PCA em um cenário de alta relevância biomédica: monitoramento de células HeLa vivas por FT-IR em ambiente aquoso.</p>
-<h3 id="o-desafio">O desafio<a class="headerlink" href="#o-desafio" title="Permanent link">&para;</a></h3>
+<h5 id="1291-o-desafio">1.2.9.1 O desafio<a class="headerlink" href="#1291-o-desafio" title="Permanent link">&para;</a></h5>
 <p>Células vivas precisam ser medidas em solução aquosa, o que impõe:</p>
 <ul>
 <li><strong>Caminho óptico muito curto</strong> (6–10 μm) para minimizar a absorção da água líquida.</li>
 <li><strong>Poucas varreduras co-adicionadas</strong> por pixel (apenas 8) para completar a imagem em tempo hábil (~30 minutos), antes que as células sofram alterações biológicas.</li>
 <li><strong>Resultado</strong>: espectros com S/N mais baixa do que em amostras fixas/secas.</li>
 </ul>
-<h3 id="a-solucao-com-na-pca">A solução com NA-PCA<a class="headerlink" href="#a-solucao-com-na-pca" title="Permanent link">&para;</a></h3>
+<h5 id="1292-a-solucao-com-na-pca">1.2.9.2 A solução com NA-PCA<a class="headerlink" href="#1292-a-solucao-com-na-pca" title="Permanent link">&para;</a></h5>
 <p>Com o modo de imagem + NA-PCA, o fluxo de trabalho foi:</p>
 <ol>
 <li>Coletar um mapa de 1 mm × 1 mm (25.600 espectros, 8 interferogramas/pixel) em ~30 minutos.</li>
@@ -2014,7 +1672,7 @@
 <li>Converter para segunda derivada (Savitzky-Golay 9 pontos) + normalização vetorial.</li>
 <li>Análise por PCA para comparar células tratadas vs. não tratadas.</li>
 </ol>
-<h3 id="o-resultado">O resultado<a class="headerlink" href="#o-resultado" title="Permanent link">&para;</a></h3>
+<h5 id="1293-o-resultado">1.2.9.3 O resultado<a class="headerlink" href="#1293-o-resultado" title="Permanent link">&para;</a></h5>
 <p>Com este fluxo, foi possível <strong>detectar diferenças espectrais entre células HeLa não tratadas e células tratadas com ciclofosfamida</strong> (um agente quimioterápico alquilante). As diferenças foram observadas principalmente:</p>
 <ul>
 <li>Na posição da banda <strong>Amida I</strong> (~1652 cm⁻¹): variações em proteínas.</li>
@@ -2022,13 +1680,6 @@
 </ul>
 <p>Esses resultados são consistentes com o mecanismo de ação conhecido da ciclofosfamida: danos ao DNA por alquilação das bases guanina.</p>
 <hr />
-<h2 id="10-referencias">10. Referências<a class="headerlink" href="#10-referencias" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>Marcsisin, E.J., Uttero, C.M., Mazur, A.I., Miljkovic, M., Bird, B., Diem, M. (2012). <strong>Noise Adjusted Principal Component reconstruction to optimize infrared microspectroscopy of individual live cells</strong>. <em>Analyst</em>, 137, 2958–2964. DOI: 10.1039/c2an15868j</p>
-<p>Bhargava, R., Ribar, T., Koenig, J.L. (1999). Towards faster FT-IR imaging by reducing noise. <em>Applied Spectroscopy</em>, 53(11), 1313–1322.</p>
-<p>Green, A.A., Berman, M., Switzer, P., Craig, M.D. (1988). A transformation for ordering multispectral data in terms of image quality with implications for noise removal. <em>IEEE Transactions on Geoscience and Remote Sensing</em>, 26(1), 65–74.</p>
-<p>Diem, M. (2015). Data Preprocessing and Data Processing in Microspectral Analysis. In: <em>Modern Vibrational Spectroscopy and Micro-Spectroscopy</em>. John Wiley &amp; Sons. Chapter 12.</p>
-</blockquote>
 
 
 
@@ -2081,7 +1732,7 @@
       
       
     
-    <a href="https://github.com/tmpereira/hsp_2026" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/seu_usuario/hsp_2026" target="_blank" rel="noopener" title="github.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
@@ -2100,7 +1751,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "toc.integrate", "search.highlight", "search.suggest", "content.code.copy", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
